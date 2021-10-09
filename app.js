@@ -14,13 +14,6 @@ const userSchema = new mongoose.Schema({
 
 const User = mongoose.model("User",userSchema);
 
-const user = new User({
-    username: "firstUser",
-    email: "firstUser@xyz.com",
-    password: "first"
-});
-
-// user.save();
 
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -52,18 +45,34 @@ app.post("/signup", function (req, res) {
     newUser.save(function(err){
         if(err){
             console.log(err);
-            res.render("login");
+            res.redirect("signup");
+        }
+        else if (req.body.username === "" || req.body.email === "" || req.body.password ==="" ) {
+            res.redirect("signup");
         }
         else{
-            res.render("tracker");
+            res.redirect("tracker");
         }
     });
 });
 
 
 app.post("/login", function (req, res) {
-    console.log(req.body.username);
-    console.log(req.body.password);
+    const currentusername = req.body.username;
+    const password = req.body.password;
+
+    User.findOne({username:currentusername}, function(err,foundUser){
+        if(err){
+            console.log(err);
+        }
+        else{
+            if(foundUser){
+                if(foundUser.password === password){
+                    res.redirect("tracker");
+                }
+            }
+        }
+    });
 });
 
 
