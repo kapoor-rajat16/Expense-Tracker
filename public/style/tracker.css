@@ -1,12 +1,12 @@
 body{
-    background-color: #ff4c670c;
+    background-color: #ffffff0c;
 }
 
 .navbar-light .navbar-brand {
-    color: #0554ff;
+    color: #ff4c68;
 }
 .navbar-light .navbar-brand:hover {
-    color: #0554ff;
+    color: #ff4c68;
    
 }
 .heading{
@@ -15,12 +15,54 @@ body{
 }
 
 .container-fluid{
-    padding: 3% 10%;
+    padding: 3% 15%;
 }
 .navbar-light .navbar-nav .nav-link {
-    color: #0554ff;
+    color: #ff4c68;
 }
 .navbar-light .navbar-nav .nav-link:hover {
     text-decoration: underline;
-    color: #0554ff;
+    color: #ff4c68;
 }
+
+.sec{
+    text-align: center;
+}
+.btn-item{
+    margin: 10px;
+    width: 300px;
+}
+
+.btn-outline-danger {
+    color: #ff4c68;
+    background-color: transparent;
+    background-image: none;
+    border-color: #ff4c68;
+}
+
+.btn-danger {
+    color: #fff;
+    background-color: #ff4c68;
+    border-color: #ff4c68;
+}
+.btn-outline-danger:hover {
+    color: #fff;
+    background-color: #ff4c68;
+    background-image: none;
+    border-color: #ff4c68;
+}
+.btn-top{
+    margin-top: 80px;
+}
+
+@media screen and (min-width: 970px) {
+    .card{
+        position: relative;
+        left: 18px;
+    }
+    .btn-item{
+        position: relative;
+        right: 62px;
+    }
+   
+  }
