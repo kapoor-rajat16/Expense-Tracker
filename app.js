@@ -5,7 +5,9 @@ const mongoose = require("mongoose");
 const session = require("express-session");
 const passport = require("passport");
 const passportLocalMongoose = require("passport-local-mongoose");
-var LocalStrategy = require('passport-local').Strategy;
+const LocalStrategy = require('passport-local').Strategy;
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
+const findOrCreate = require('mongoose-findorcreate');
 
 const app = express();
 
@@ -30,6 +32,7 @@ const userSchema = new mongoose.Schema({
 });
 
 userSchema.plugin(passportLocalMongoose);
+userSchema.plugin(findOrCreate);
 
 const User = mongoose.model("User", userSchema);
 
@@ -40,10 +43,30 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+passport.use(new GoogleStrategy({
+    clientID: process.env.CLIENT_ID,
+    clientSecret: process.env.CLIENT_SECRET,
+    callbackURL: "http://localhost:3000/auth/google/tracker",
+    userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
+},
+    function (accessToken, refreshToken, profile, cb) {
+        User.findOrCreate = require('mongoose-findorcreate')({ googleId: profile.id }, function (err, user) {
+            return cb(err, user);
+        });
+    }
+));
+
+
 app.get("/", function (req, res) {
     res.sendFile(__dirname + "/home.html");
 });
 
+app.get('/auth/google',
+  passport.authenticate('google', { scope: ['profile'] }));
+
+app.get("/auth/google/tracker", function (req, res) {
+    res.sendFile(__dirname + "/tracker.html");
+});
 app.get("/login", function (req, res) {
     res.sendFile(__dirname + "/login.html");
 });
@@ -56,29 +79,29 @@ app.get("/tracker", function (req, res) {
     if (req.isAuthenticated()) {
         res.sendFile(__dirname + "/tracker.html");
     }
-     else{
+    else {
         res.redirect("login");
-     }  
+    }
 });
 
-app.post("/tracker", function (req,res) {
+app.post("/tracker", function (req, res) {
     req.logout();
     res.redirect("/");
 });
 
 app.post("/signup", function (req, res) {
 
-   User.register({username:req.body.username}, req.body.password, function (err,user) {
-       if (err) {
-           console.log(err);
-           res.redirect("signup");
-       }
-       else{
-           passport.authenticate("local")(req,res,function () {
-            res.redirect("tracker");         
-           });
-       }
-   });
+    User.register({ username: req.body.username }, req.body.password, function (err, user) {
+        if (err) {
+            console.log(err);
+            res.redirect("signup");
+        }
+        else {
+            passport.authenticate("local")(req, res, function () {
+                res.redirect("tracker");
+            });
+        }
+    });
 
 });
 
@@ -88,20 +111,20 @@ app.post("/signup", function (req, res) {
 app.post("/login", function (req, res) {
 
     const user = new User({
-        username : req.body.username,
-        password : req.body.password
+        username: req.body.username,
+        password: req.body.password
     });
 
-    req.login(user,function (err) {
+    req.login(user, function (err) {
         if (err) {
             console.log(err);
             res.redirect("signup");
         }
-        else{
-            passport.authenticate("local")(req,res,function () {
-                res.redirect("tracker");         
-               });
-        }    
+        else {
+            passport.authenticate("local")(req, res, function () {
+                res.redirect("tracker");
+            });
+        }
     });
 
 });
