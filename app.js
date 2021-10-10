@@ -67,6 +67,7 @@ app.get('/auth/google',
 app.get("/auth/google/tracker", function (req, res) {
     res.sendFile(__dirname + "/tracker.html");
 });
+
 app.get("/login", function (req, res) {
     res.sendFile(__dirname + "/login.html");
 });
@@ -135,7 +136,7 @@ app.post("/login", function (req, res) {
 });
 
 
-app.listen(3000, function () {
+app.listen(process.env.PORT || 3000, function () {
     console.log("Server is running on port 3000");
 });
 // else if (req.body.username === "" || req.body.email === "" || req.body.password === "") {

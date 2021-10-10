@@ -1,0 +1,26 @@
+body{
+    background-color: #ff4c670c;
+}
+
+.navbar-light .navbar-brand {
+    color: #0554ff;
+}
+.navbar-light .navbar-brand:hover {
+    color: #0554ff;
+   
+}
+.heading{
+    font-family: Ubuntu;
+    font-weight: 600;
+}
+
+.container-fluid{
+    padding: 3% 10%;
+}
+.navbar-light .navbar-nav .nav-link {
+    color: #0554ff;
+}
+.navbar-light .navbar-nav .nav-link:hover {
+    text-decoration: underline;
+    color: #0554ff;
+}
