@@ -89,6 +89,11 @@ app.post("/tracker", function (req, res) {
     res.redirect("/");
 });
 
+app.post("/auth/google/tracker", function (req, res) {
+    req.logout();
+    res.redirect("/");
+});
+
 app.post("/signup", function (req, res) {
 
     User.register({ username: req.body.username }, req.body.password, function (err, user) {
