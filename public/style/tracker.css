@@ -30,7 +30,7 @@ body{
 }
 .btn-item{
     margin: 10px;
-    width: 300px;
+    width: 280px;
 }
 
 .btn-outline-danger {
@@ -62,7 +62,9 @@ body{
     }
     .btn-item{
         position: relative;
-        right: 62px;
+        right: 45px;
     }
    
   }
+
+  

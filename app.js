@@ -85,6 +85,31 @@ app.get("/tracker", function (req, res) {
     }
 });
 
+app.get("/income",function(req,res){
+    if (req.isAuthenticated()) {
+        res.sendFile(__dirname + "/income.html");
+    }
+    else {
+        res.redirect("login");
+    }
+});
+app.get("/charts",function(req,res){
+    if (req.isAuthenticated()) {
+        res.sendFile(__dirname + "/charts.html");
+    }
+    else {
+        res.redirect("login");
+    }
+});
+app.get("/history",function(req,res){
+    if (req.isAuthenticated()) {
+        res.sendFile(__dirname + "/history.html");
+    }
+    else {
+        res.redirect("login");
+    }
+});
+
 app.post("/tracker", function (req, res) {
     req.logout();
     res.redirect("/");

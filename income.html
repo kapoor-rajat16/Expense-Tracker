@@ -66,41 +66,57 @@
 
         </div>
 
-
-
     </section>
-
-    <section class="track">
-        <div class="row">
-            <div class="col-md-6 sec">
-                <div class="card text-center mx-auto" style="width: 20rem;">
-                    
-                    <div class="card-body">
-                      <h5 class="card-title">Summery</h5>
-                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    <div class="row">
+        <div class="col-5 text-center">
+            <h3>Income</h3>
+            <div class="input-group" style="width: 500px;">
+                <input type="text" class="form-control" aria-label="Text input with dropdown button"
+                    placeholder="Amount">
+                <div class="input-group-append">
+                    <button class="btn btn-danger dropdown-toggle" type="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">Category</button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Paycheck</a>
+                        <a class="dropdown-item" href="#">Interest</a>
+                        <a class="dropdown-item" href="#">Gift</a>
+                        <a class="dropdown-item" href="#">Bonus</a>
                     </div>
-                    <ul class="list-group list-group-flush">
-                      <li class="list-group-item">Cras justo odio</li>
-                      <li class="list-group-item">Dapibus ac facilisis in</li>
-                      <li class="list-group-item">Vestibulum at eros</li>
-                    </ul>
-                    <div class="card-body">
-                      <a href="#" class="card-link">Card link</a>
-                      <a href="#" class="card-link">Another link</a>
-                    </div>
-                  </div>
+                </div>
+            </div>
 
-            </div>
-            <div class="col-md-6 sec">
-                <a href="income" class="btn btn-item btn-danger btn-lg btn-top" type="button">Add Income/Expense</a> <br>
-                <a href="history" class="btn btn-item btn-danger btn-lg" type="button">Cashflow</a> <br>
-              <a href="charts" class="btn btn-item btn-danger btn-lg" type="button">Charts</a> <br>
-            
-            </div>
+            <button class="btn btn-danger btn-large update my-4">Update Income</button>
         </div>
-    </section>
+
+        <div class="col-2 text-center">
+            <h3>Balance</h3>
+        </div>
+
+        <div class="col-5 text-center">
+            <h3>Expense</h3>
+            <div class="input-group" style="width: 500px;">
+                <input type="text" class="form-control" aria-label="Text input with dropdown button"
+                    placeholder="Amount">
+                <div class="input-group-append">
+                    <button class="btn btn-danger dropdown-toggle" type="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">Category</button>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" href="#">Paycheck</a>
+                        <a class="dropdown-item" href="#">Interest</a>
+                        <a class="dropdown-item" href="#">Gift</a>
+                        <a class="dropdown-item" href="#">Bonus</a>
+                    </div>
+                </div>
+            </div>
+
+            <button class="btn btn-danger btn-large update my-4">Update Expense</button>
+        </div>
+
+    </div>
 
 
+
+    </div>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
