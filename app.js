@@ -93,6 +93,14 @@ app.get("/income",function(req,res){
         res.redirect("login");
     }
 });
+app.get("/auth/google/income",function(req,res){
+    if (req.isAuthenticated()) {
+        res.sendFile(__dirname + "/income.html");
+    }
+    else {
+        res.redirect("login");
+    }
+});
 app.get("/charts",function(req,res){
     if (req.isAuthenticated()) {
         res.sendFile(__dirname + "/charts.html");
@@ -111,6 +119,18 @@ app.get("/history",function(req,res){
 });
 
 app.post("/tracker", function (req, res) {
+    req.logout();
+    res.redirect("/");
+});
+app.post("/income", function (req, res) {
+    req.logout();
+    res.redirect("/");
+});
+app.post("/charts", function (req, res) {
+    req.logout();
+    res.redirect("/");
+});
+app.post("/history", function (req, res) {
     req.logout();
     res.redirect("/");
 });
