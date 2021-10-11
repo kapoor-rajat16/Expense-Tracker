@@ -67,4 +67,10 @@ body{
    
   }
 
-  
+  .income-expense-input{
+      width: 300px;
+  }
+
+  .recipt{
+      text-align: left;
+  }
