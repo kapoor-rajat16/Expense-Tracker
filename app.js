@@ -28,7 +28,10 @@ mongoose.connect("mongodb://localhost:27017/etUserDB", { useNewUrlParser: true }
 
 const userSchema = new mongoose.Schema({
     username: String,
-    password: String
+    password: String,
+    income:Number,
+    expense:Number,
+    note:String
 });
 
 userSchema.plugin(passportLocalMongoose);
