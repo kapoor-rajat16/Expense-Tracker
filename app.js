@@ -62,6 +62,8 @@ const userSchema = new mongoose.Schema({
     username: String,
     password: String,
     balance:Number,
+    totalCredit:Number,
+    totalDebit:Number,
     transaction: TransactionSchema
 });
 
@@ -115,7 +117,7 @@ app.get("/signup", function (req, res) {
 app.get("/tracker", function (req, res) {
     if (req.isAuthenticated()) {
         // res.sendFile(__dirname + "/tracker.html");
-        res.render("tracker");
+        res.render("tracker",{User:req.user});
     }
     else {
         res.redirect("login");
@@ -184,7 +186,7 @@ app.post("/auth/google/tracker", function (req, res) {
 
 app.post("/signup", function (req, res) {
 
-    User.register({ username: req.body.username,balance:0 ,transactions}, req.body.password, function (err, user) {
+    User.register({ username: req.body.username,balance:0 ,totalCredit:0,totalDebit:0,transactions}, req.body.password, function (err, user) {
         if (err) {
             console.log(err);
             res.redirect("signup");
