@@ -14,6 +14,10 @@ body{
     font-weight: 600;
 }
 
+.navbar{
+padding-bottom: 70px;
+}
+
 .container-fluid{
     padding: 3% 15%;
 }
