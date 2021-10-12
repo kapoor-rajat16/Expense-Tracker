@@ -10,6 +10,7 @@ const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const findOrCreate = require('mongoose-findorcreate');
 
 const app = express();
+app.set("view engine", "ejs");
 
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -61,7 +62,7 @@ passport.use(new GoogleStrategy({
 
 
 app.get("/", function (req, res) {
-    res.sendFile(__dirname + "/home.html");
+    res.render("home");
 });
 
 app.get('/auth/google',
@@ -81,7 +82,8 @@ app.get("/signup", function (req, res) {
 
 app.get("/tracker", function (req, res) {
     if (req.isAuthenticated()) {
-        res.sendFile(__dirname + "/tracker.html");
+        // res.sendFile(__dirname + "/tracker.html");
+        res.render("tracker");
     }
     else {
         res.redirect("login");
@@ -90,7 +92,8 @@ app.get("/tracker", function (req, res) {
 
 app.get("/income",function(req,res){
     if (req.isAuthenticated()) {
-        res.sendFile(__dirname + "/income.html");
+        // res.sendFile(__dirname + "/income.html");
+        res.render("income");
     }
     else {
         res.redirect("login");
@@ -98,7 +101,8 @@ app.get("/income",function(req,res){
 });
 app.get("/auth/google/income",function(req,res){
     if (req.isAuthenticated()) {
-        res.sendFile(__dirname + "/income.html");
+        // res.sendFile(__dirname + "/income.html");
+        res.render("income");
     }
     else {
         res.redirect("login");
@@ -106,7 +110,8 @@ app.get("/auth/google/income",function(req,res){
 });
 app.get("/charts",function(req,res){
     if (req.isAuthenticated()) {
-        res.sendFile(__dirname + "/charts.html");
+        // res.sendFile(__dirname + "/charts.html");
+        res.render("charts")
     }
     else {
         res.redirect("login");
@@ -114,7 +119,8 @@ app.get("/charts",function(req,res){
 });
 app.get("/history",function(req,res){
     if (req.isAuthenticated()) {
-        res.sendFile(__dirname + "/history.html");
+        // res.sendFile(__dirname + "/history.html");
+        res.render("history");
     }
     else {
         res.redirect("login");
