@@ -69,7 +69,8 @@ app.get('/auth/google',
   passport.authenticate('google', { scope: ['profile'] }));
 
 app.get("/auth/google/tracker", function (req, res) {
-    res.sendFile(__dirname + "/tracker.html");
+    // res.sendFile(__dirname + "/tracker.html");
+    res.render("tracker");
 });
 
 app.get("/login", function (req, res) {
