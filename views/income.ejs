@@ -1,87 +1,119 @@
 <%- include('_header'); -%>
 
-<div class="row">
-    <div class="col-md-5 text-center">
-        <h3>Income</h3>
-        <div class="input-group income-expense-input mx-auto my-2">
-            <input type="text" class="form-control" name="income" aria-label="Text input with dropdown button"
-                placeholder="Amount">
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                      <label class="input-group-text mt-3" for="inputGroupSelect01">Category</label>
+    <div class="row">
+        <div class="col-md-5 text-center">
+            <h3>Income</h3>
+            <form action="/addMoney" method="post">
+                <div class="input-group income-expense-input mx-auto my-2">
+
+                    <input type="text" class="form-control" name="income" aria-label="Text input with dropdown button"
+                        placeholder="Amount">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text mt-3" for="inputGroupSelect01">Category</label>
+                        </div>
+                        <select class="custom-select mt-3" name="category" id="inputGroupSelect01">
+                            <option selected>Choose...</option>
+                            <option value="1">Paycheck</option>
+                            <option value="2">Interest</option>
+                            <option value="3">Gift</option>
+                            <option value="4">Bonus</option>
+                        </select>
                     </div>
-                    <select class="custom-select mt-3" id="inputGroupSelect01">
-                      <option selected>Choose...</option>
-                      <option value="1">Paycheck</option>
-                      <option value="2">Interest</option>
-                      <option value="3">Gift</option>
-                      <option value="4">Bonus</option>
-                    </select>
-                  </div>
-            <div class="input-group mb-3">
-                <div class="custom-file">
-                    <input type="file" class="custom-file-input" id="inputGroupFile02">
-                    <label class="custom-file-label recipt" for="inputGroupFile02">Add Recipt</label>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text mt-3" for="inputGroupSelect01">Mode</label>
+                        </div>
+                        <select class="custom-select mt-3" name="category" id="inputGroupSelect01">
+                            <option selected>Choose...</option>
+                            <option value="1">Cash</option>
+                            <option value="2">UPI</option>
+                            <option value="3">Cheque</option>
+                        </select>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Note for the transaction " aria-label="Recipient's username" aria-describedby="basic-addon2">
+                      </div>
+                    <div class="input-group mb-3">
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="inputGroupFile02">
+                            <label class="custom-file-label recipt" for="inputGroupFile02">Add Recipt</label>
+                        </div>
+
+                    </div>
                 </div>
-                <div class="input-group-append">
-                    <span class="input-group-text" id="">Upload</span>
-                </div>
+
+                <button class="btn btn-danger btn-large update my-2" type="submit">Update Income</button>
+            </form>
+        </div>
+
+        <div class="col-md-2 text-center bal">
+            <h3>Balance</h3>
+            <div class="alert alert-danger" role="alert">
+               Rs <%= User.balance %> 
             </div>
         </div>
 
-        <button class="btn btn-danger btn-large update my-4">Update Income</button>
-    </div>
-
-    <div class="col-md-2 text-center">
-        <h3>Balance</h3>
-    </div>
-
-    <div class="col-md-5 text-center">
-        <h3>Expense</h3>
-        <div class="input-group income-expense-input mx-auto my-2">
-            <input type="text" class="form-control" aria-label="Text input with dropdown button"
-                placeholder="Amount">
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                      <label class="input-group-text mt-3" for="inputGroupSelect01">Category</label>
+        <div class="col-md-5 text-center">
+            <h3>Expense</h3>
+            <form action="/subMoney" method="post">
+                <div class="input-group income-expense-input mx-auto my-2">
+                    <input type="text" class="form-control" name="expense" aria-label="Text input with dropdown button"
+                        placeholder="Amount">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text mt-3" for="inputGroupSelect01">Category</label>
+                        </div>
+                        <select class="custom-select mt-3" name="category" id="inputGroupSelect01">
+                            <option selected>Choose...</option>
+                            <option value="1">Groceries</option>
+                            <option value="2">Education</option>
+                            <option value="3">Transportation</option>
+                            <option value="4">Gifts</option>
+                        </select>
                     </div>
-                    <select class="custom-select mt-3" id="inputGroupSelect01">
-                      <option selected>Choose...</option>
-                      <option value="1">Groceries</option>
-                      <option value="2">Education</option>
-                      <option value="3">Transportation</option>
-                      <option value="4">Gifts</option>
-                    </select>
-                  </div>
-            <div class="input-group mb-3">
-                <div class="custom-file">
-                    <input type="file" class="custom-file-input" id="inputGroupFile02">
-                    <label class="custom-file-label recipt" for="inputGroupFile02">Add Recipt</label>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text mt-3" for="inputGroupSelect01">Mode</label>
+                        </div>
+                        <select class="custom-select mt-3" name="category" id="inputGroupSelect01">
+                            <option selected>Choose...</option>
+                            <option value="1">Cash</option>
+                            <option value="2">UPI</option>
+                            <option value="3">Cheque</option>
+                        </select>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Note for the transaction " aria-label="Recipient's username" aria-describedby="basic-addon2">
+                      </div>
+                    <div class="input-group mb-3">
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="inputGroupFile02">
+                            <label class="custom-file-label recipt" for="inputGroupFile02">Add Recipt</label>
+                        </div>
+
+                    </div>
                 </div>
-                <div class="input-group-append">
-                    <span class="input-group-text" id="">Upload</span>
-                </div>
-            </div>
+
+                <button type="submit" class="btn btn-danger btn-large update my-2">Update Expense</button>
+            </form>
         </div>
 
-        <button class="btn btn-danger btn-large update my-4">Update Expense</button>
     </div>
 
-</div>
 
 
 
 
-
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-    crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-    crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-    crossorigin="anonymous"></script>
-<%- include('_footer'); -%>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <%- include('_footer'); -%>

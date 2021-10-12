@@ -27,13 +27,44 @@ app.use(passport.session());
 
 mongoose.connect("mongodb://localhost:27017/etUserDB", { useNewUrlParser: true });
 
+
+const TransactionSchema = new mongoose.Schema({
+   
+    text: {
+        type: String,
+        trim: true,
+        required: [true, 'Please add some text']
+    },
+    amount: {
+        type: Number,
+        required: [true, 'Please add a number']
+    },
+    category: {
+        type: String,
+        required: [true, 'Please select one of these category']
+    },
+    mode: {
+        type: String,
+        required: [true, 'Please select one of these category']
+    },
+    
+    createdAt: {
+        type: Date,
+        default: Date.now
+    }
+    // recipt:{
+    //     type: Image
+    // }
+});
+const transactions = mongoose.model('Transaction', TransactionSchema);
+
 const userSchema = new mongoose.Schema({
     username: String,
     password: String,
-    income:Number,
-    expense:Number,
-    note:String
+    balance:Number,
+    transaction: TransactionSchema
 });
+
 
 userSchema.plugin(passportLocalMongoose);
 userSchema.plugin(findOrCreate);
@@ -66,7 +97,7 @@ app.get("/", function (req, res) {
 });
 
 app.get('/auth/google',
-  passport.authenticate('google', { scope: ['profile'] }));
+    passport.authenticate('google', { scope: ['profile'] }));
 
 app.get("/auth/google/tracker", function (req, res) {
     // res.sendFile(__dirname + "/tracker.html");
@@ -91,7 +122,17 @@ app.get("/tracker", function (req, res) {
     }
 });
 
-app.get("/income",function(req,res){
+app.get("/income", function (req, res) {
+    
+    if (req.isAuthenticated()) {
+        // res.sendFile(__dirname + "/income.html");
+        res.render("income",{User:req.user});
+    }
+    else {
+        res.redirect("login");
+    }
+});
+app.get("/auth/google/income", function (req, res) {
     if (req.isAuthenticated()) {
         // res.sendFile(__dirname + "/income.html");
         res.render("income");
@@ -100,16 +141,7 @@ app.get("/income",function(req,res){
         res.redirect("login");
     }
 });
-app.get("/auth/google/income",function(req,res){
-    if (req.isAuthenticated()) {
-        // res.sendFile(__dirname + "/income.html");
-        res.render("income");
-    }
-    else {
-        res.redirect("login");
-    }
-});
-app.get("/charts",function(req,res){
+app.get("/charts", function (req, res) {
     if (req.isAuthenticated()) {
         // res.sendFile(__dirname + "/charts.html");
         res.render("charts")
@@ -118,7 +150,7 @@ app.get("/charts",function(req,res){
         res.redirect("login");
     }
 });
-app.get("/history",function(req,res){
+app.get("/history", function (req, res) {
     if (req.isAuthenticated()) {
         // res.sendFile(__dirname + "/history.html");
         res.render("history");
@@ -152,7 +184,7 @@ app.post("/auth/google/tracker", function (req, res) {
 
 app.post("/signup", function (req, res) {
 
-    User.register({ username: req.body.username }, req.body.password, function (err, user) {
+    User.register({ username: req.body.username,balance:0 ,transactions}, req.body.password, function (err, user) {
         if (err) {
             console.log(err);
             res.redirect("signup");
@@ -173,7 +205,7 @@ app.post("/login", function (req, res) {
 
     const user = new User({
         username: req.body.username,
-        password: req.body.password
+        password: req.body.password,
     });
 
     req.login(user, function (err) {
@@ -190,6 +222,18 @@ app.post("/login", function (req, res) {
 
 });
 
+
+/*************tracker**************/
+
+app.post("/addMoney", function (req, res) {
+    console.log(req.body);
+
+    res.redirect("income");
+});
+app.post("/subMoney", function (req, res) {
+    console.log(req.body);
+    res.redirect("income");
+});
 
 app.listen(process.env.PORT || 3000, function () {
     console.log("Server is running on port 3000");

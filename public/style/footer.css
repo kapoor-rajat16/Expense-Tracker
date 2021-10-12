@@ -4,6 +4,7 @@ body {
   }
 
 footer{
+    z-index: 10000;
     color: #fff;
     background-color: #ff4c68;
     position: fixed;
