@@ -1,7 +1,7 @@
 <%- include('_header'); -%>
 
     <div class="row">
-        <div class="col-md-5 text-center">
+        <div class="col-lg-5 text-center">
             <h3>Income</h3>
             <form action="/addMoney" method="post">
                 <div class="input-group income-expense-input mx-auto my-2">
@@ -47,14 +47,14 @@
             </form>
         </div>
 
-        <div class="col-md-2 text-center bal">
+        <div class="col-lg-2 text-center bal mx-auto">
             <h3>Balance</h3>
             <div class="alert alert-danger" role="alert">
                Rs <%= User.balance %> 
             </div>
         </div>
 
-        <div class="col-md-5 text-center">
+        <div class="col-lg-5 text-center">
             <h3>Expense</h3>
             <form action="/subMoney" method="post">
                 <div class="input-group income-expense-input mx-auto my-2">

@@ -64,12 +64,18 @@ padding-bottom: 70px;
         position: relative;
         left: 18px;
     }
+    
     .btn-item{
         position: relative;
         right: 45px;
     }
-   
-  }
+}
+
+@media screen and (max-width: 1000px) {
+    .bal{
+        margin: 50px 0px;
+    }
+}
 
   .income-expense-input{
       width: 300px;
@@ -81,4 +87,7 @@ padding-bottom: 70px;
 
   .bal{
       width: 300px;
+      text-align: center;
   }
+
+  
