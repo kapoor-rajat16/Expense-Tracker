@@ -29,16 +29,16 @@ mongoose.connect("mongodb://localhost:27017/etUserDB", { useNewUrlParser: true }
 
 
 const TransactionSchema = new mongoose.Schema({
-    flow:{
+    flow: {
         type: String
     },
-   
-    userid:{
-    type:String
-   },
-   amount: {
-       type: Number,
-       required: [true, 'Please add a number']
+
+    userid: {
+        type: String
+    },
+    amount: {
+        type: Number,
+        required: [true, 'Please add a number']
     },
     category: {
         type: String,
@@ -53,7 +53,7 @@ const TransactionSchema = new mongoose.Schema({
         trim: true,
         required: [true, 'Please add some text']
     },
-    
+
     createdAt: {
         type: Date,
         default: Date.now
@@ -67,9 +67,9 @@ const transactions = mongoose.model('Transaction', TransactionSchema);
 const userSchema = new mongoose.Schema({
     username: String,
     password: String,
-    balance:Number,
-    totalCredit:Number,
-    totalDebit:Number
+    balance: Number,
+    totalCredit: Number,
+    totalDebit: Number
 });
 
 
@@ -122,7 +122,7 @@ app.get("/signup", function (req, res) {
 app.get("/tracker", function (req, res) {
     if (req.isAuthenticated()) {
         // res.sendFile(__dirname + "/tracker.html");
-        res.render("tracker",{User:req.user});
+        res.render("tracker", { User: req.user });
     }
     else {
         res.redirect("login");
@@ -130,10 +130,10 @@ app.get("/tracker", function (req, res) {
 });
 
 app.get("/income", function (req, res) {
-    
+
     if (req.isAuthenticated()) {
         // res.sendFile(__dirname + "/income.html");
-        res.render("income",{User:req.user});
+        res.render("income", { User: req.user });
     }
     else {
         res.redirect("login");
@@ -191,7 +191,7 @@ app.post("/auth/google/tracker", function (req, res) {
 
 app.post("/signup", function (req, res) {
 
-    User.register({ username: req.body.username,balance:0 ,totalCredit:0,totalDebit:0}, req.body.password, function (err, user) {
+    User.register({ username: req.body.username, balance: 0, totalCredit: 0, totalDebit: 0 }, req.body.password, function (err, user) {
         if (err) {
             console.log(err);
             res.redirect("signup");
@@ -233,15 +233,9 @@ app.post("/login", function (req, res) {
 /*************tracker**************/
 
 app.post("/addMoney", function (req, res) {
-    // console.log(req.user.id);
-    // console.log(req.body.income);
-    // console.log(req.body.category);
-    // console.log(req.body.mode);
-    // console.log(req.body.note);
-
 
     const transaction = new transactions({
-        flow:"Credit",
+        flow: "Credit",
         userid: req.user.id,
         amount: req.body.income,
         category: req.body.category,
@@ -251,16 +245,32 @@ app.post("/addMoney", function (req, res) {
 
     transaction.save();
 
+    User.findOneAndUpdate({ _id: req.user._id }, { $inc:{balance: req.body.income} }, function (err, data) {
+        if (err) {
+            console.log(err);
+            req.redirect("income");
+        }
+        else {
+            console.log(data);
+        }
+    });
+
+    User.findOneAndUpdate({ _id: req.user._id }, { $inc:{totalCredit: req.body.income} }, function (err, data) {
+        if (err) {
+            console.log(err);
+            req.redirect("income");
+        }
+        else {
+            console.log(data);
+        }
+    });
+
     res.redirect("income");
 });
 app.post("/subMoney", function (req, res) {
-    console.log(req.body.expense);
-    console.log(req.body.category);
-    console.log(req.body.mode);
-    console.log(req.body.note);
 
     const transaction = new transactions({
-        flow:"Debit",
+        flow: "Debit",
         userid: req.user.id,
         amount: req.body.expense,
         category: req.body.category,
@@ -269,6 +279,26 @@ app.post("/subMoney", function (req, res) {
     });
 
     transaction.save();
+
+    User.findOneAndUpdate({ _id: req.user._id }, { $inc:{balance: -req.body.expense} }, function (err, data) {
+        if (err) {
+            console.log(err);
+            req.redirect("income");
+        }
+        else {
+            console.log(data);
+        }
+    });
+    User.findOneAndUpdate({ _id: req.user._id }, { $inc:{totalDebit: req.body.expense} }, function (err, data) {
+        if (err) {
+            console.log(err);
+            req.redirect("income");
+        }
+        else {
+            console.log(data);
+        }
+    });
+
     res.redirect("income");
 });
 
