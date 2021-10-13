@@ -159,8 +159,12 @@ app.get("/charts", function (req, res) {
 });
 app.get("/history", function (req, res) {
     if (req.isAuthenticated()) {
-        // res.sendFile(__dirname + "/history.html");
-        res.render("history");
+transactions.find()
+.exec()
+.then(results=>res.render("history",{transactions:results,User:req.user}))
+.catch(err=>console.log(err));
+        
+        // res.render("history",{User: req.user});
     }
     else {
         res.redirect("login");
