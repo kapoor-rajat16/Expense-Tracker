@@ -1,6 +1,6 @@
 <%- include('_header'); -%>
     <div class="container">
-
+        <h3 style="color: #ff4c68; font-weight: 600; text-decoration: underline;">Transaction History</h3>
         <table class="table table-striped">
             <thead>
                 <tr>
@@ -16,7 +16,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
+                <!-- <tr>
                     <th scope="row">1</th>
                     <td>Credit</td>
                     <td>1025</td>
@@ -25,9 +25,9 @@
                     <td>Brothers return gift</td>
                     <td>img</td>
                     <td>10th oct, 2021 time: 9:36</td>
-                </tr>
+                </tr> -->
                 <%for(var i = 0; i < transactions.length;i++){%>
-                    
+                    <%if(transactions[i].userid == User._id){%>
                 <tr>
                     <th scope="row"><%=i+1%></th>
                     <td><%=transactions[i].flow%></td>
@@ -36,9 +36,10 @@
                     <td><%=transactions[i].mode%></td>
                     <td><%=transactions[i].note%></td>
                     <td><%=User.username%></td>
-                    <td><%=transactions[i].Date%></td>
+                    <td><%=transactions[i].createdAt%></td>
                 </tr>
                 
+                <%}%>
                 <%}%>
                 
             </tbody>
