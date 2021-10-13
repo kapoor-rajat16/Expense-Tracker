@@ -29,15 +29,16 @@ mongoose.connect("mongodb://localhost:27017/etUserDB", { useNewUrlParser: true }
 
 
 const TransactionSchema = new mongoose.Schema({
-   
-    text: {
-        type: String,
-        trim: true,
-        required: [true, 'Please add some text']
+    flow:{
+        type: String
     },
-    amount: {
-        type: Number,
-        required: [true, 'Please add a number']
+   
+    userid:{
+    type:String
+   },
+   amount: {
+       type: Number,
+       required: [true, 'Please add a number']
     },
     category: {
         type: String,
@@ -46,6 +47,11 @@ const TransactionSchema = new mongoose.Schema({
     mode: {
         type: String,
         required: [true, 'Please select one of these category']
+    },
+    note: {
+        type: String,
+        trim: true,
+        required: [true, 'Please add some text']
     },
     
     createdAt: {
@@ -63,8 +69,7 @@ const userSchema = new mongoose.Schema({
     password: String,
     balance:Number,
     totalCredit:Number,
-    totalDebit:Number,
-    transaction: TransactionSchema
+    totalDebit:Number
 });
 
 
@@ -186,7 +191,7 @@ app.post("/auth/google/tracker", function (req, res) {
 
 app.post("/signup", function (req, res) {
 
-    User.register({ username: req.body.username,balance:0 ,totalCredit:0,totalDebit:0,transactions}, req.body.password, function (err, user) {
+    User.register({ username: req.body.username,balance:0 ,totalCredit:0,totalDebit:0}, req.body.password, function (err, user) {
         if (err) {
             console.log(err);
             res.redirect("signup");
@@ -228,12 +233,42 @@ app.post("/login", function (req, res) {
 /*************tracker**************/
 
 app.post("/addMoney", function (req, res) {
-    console.log(req.body);
+    // console.log(req.user.id);
+    // console.log(req.body.income);
+    // console.log(req.body.category);
+    // console.log(req.body.mode);
+    // console.log(req.body.note);
+
+
+    const transaction = new transactions({
+        flow:"Credit",
+        userid: req.user.id,
+        amount: req.body.income,
+        category: req.body.category,
+        mode: req.body.mode,
+        note: req.body.note
+    });
+
+    transaction.save();
 
     res.redirect("income");
 });
 app.post("/subMoney", function (req, res) {
-    console.log(req.body);
+    console.log(req.body.expense);
+    console.log(req.body.category);
+    console.log(req.body.mode);
+    console.log(req.body.note);
+
+    const transaction = new transactions({
+        flow:"Debit",
+        userid: req.user.id,
+        amount: req.body.expense,
+        category: req.body.category,
+        mode: req.body.mode,
+        note: req.body.note
+    });
+
+    transaction.save();
     res.redirect("income");
 });
 
