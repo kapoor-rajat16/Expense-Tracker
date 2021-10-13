@@ -29,6 +29,7 @@ mongoose.connect("mongodb://localhost:27017/etUserDB", { useNewUrlParser: true }
 
 
 const TransactionSchema = new mongoose.Schema({
+
     flow: {
         type: String
     },
@@ -159,12 +160,11 @@ app.get("/charts", function (req, res) {
 });
 app.get("/history", function (req, res) {
     if (req.isAuthenticated()) {
-transactions.find()
-.exec()
-.then(results=>res.render("history",{transactions:results,User:req.user}))
-.catch(err=>console.log(err));
-        
-        // res.render("history",{User: req.user});
+        transactions.find()
+            .exec()
+            .then(results => res.render("history", { transactions: results, User: req.user }))
+            .catch(err => res.redirect("tracker"));
+
     }
     else {
         res.redirect("login");
@@ -249,7 +249,7 @@ app.post("/addMoney", function (req, res) {
 
     transaction.save();
 
-    User.findOneAndUpdate({ _id: req.user._id }, { $inc:{balance: req.body.income} }, function (err, data) {
+    User.findOneAndUpdate({ _id: req.user._id }, { $inc: { balance: req.body.income } }, function (err, data) {
         if (err) {
             console.log(err);
             req.redirect("income");
@@ -259,7 +259,7 @@ app.post("/addMoney", function (req, res) {
         }
     });
 
-    User.findOneAndUpdate({ _id: req.user._id }, { $inc:{totalCredit: req.body.income} }, function (err, data) {
+    User.findOneAndUpdate({ _id: req.user._id }, { $inc: { totalCredit: req.body.income } }, function (err, data) {
         if (err) {
             console.log(err);
             req.redirect("income");
@@ -284,7 +284,7 @@ app.post("/subMoney", function (req, res) {
 
     transaction.save();
 
-    User.findOneAndUpdate({ _id: req.user._id }, { $inc:{balance: -req.body.expense} }, function (err, data) {
+    User.findOneAndUpdate({ _id: req.user._id }, { $inc: { balance: -req.body.expense } }, function (err, data) {
         if (err) {
             console.log(err);
             req.redirect("income");
@@ -293,7 +293,7 @@ app.post("/subMoney", function (req, res) {
             console.log(data);
         }
     });
-    User.findOneAndUpdate({ _id: req.user._id }, { $inc:{totalDebit: req.body.expense} }, function (err, data) {
+    User.findOneAndUpdate({ _id: req.user._id }, { $inc: { totalDebit: req.body.expense } }, function (err, data) {
         if (err) {
             console.log(err);
             req.redirect("income");

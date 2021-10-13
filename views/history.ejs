@@ -26,16 +26,20 @@
                     <td>img</td>
                     <td>10th oct, 2021 time: 9:36</td>
                 </tr>
+                <%for(var i = 0; i < transactions.length;i++){%>
+                    
                 <tr>
-                    <th scope="row">1</th>
-                    <td><%=transactions.flow%></td>
+                    <th scope="row"><%=i+1%></th>
+                    <td><%=transactions[i].flow%></td>
+                    <td><%=transactions[i].amount%></td>
+                    <td><%=transactions[i].category%></td>
+                    <td><%=transactions[i].mode%></td>
+                    <td><%=transactions[i].note%></td>
                     <td><%=User.username%></td>
-                    <td>Gift</td>
-                    <td>Cash</td>
-                    <td>Brothers return gift</td>
-                    <td>img</td>
-                    <td>10th oct, 2021 time: 9:36</td>
+                    <td><%=transactions[i].Date%></td>
                 </tr>
+                
+                <%}%>
                 
             </tbody>
         </table>
