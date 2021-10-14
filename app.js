@@ -58,7 +58,13 @@ const TransactionSchema = new mongoose.Schema({
     createdAt: {
         type: Date,
         default: Date.now
-    }
+    },
+    year:{
+        type:String
+    },
+    month:{
+        type:String
+    },
     // recipt:{
     //     type: Image
     // }
@@ -244,7 +250,9 @@ app.post("/addMoney", function (req, res) {
         amount: req.body.income,
         category: req.body.category,
         mode: req.body.mode,
-        note: req.body.note
+        note: req.body.note,
+        year: new Date().getFullYear(),
+        month:new Date().getMonth()
     });
 
     transaction.save();
@@ -273,13 +281,15 @@ app.post("/addMoney", function (req, res) {
 });
 app.post("/subMoney", function (req, res) {
 
-    const transaction = new transactions({
+        const transaction = new transactions({
         flow: "Debit",
         userid: req.user.id,
         amount: req.body.expense,
         category: req.body.category,
         mode: req.body.mode,
-        note: req.body.note
+        note: req.body.note,
+        year: new Date().getFullYear(),
+        month:new Date().getMonth()
     });
 
     transaction.save();

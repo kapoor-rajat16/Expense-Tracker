@@ -11,25 +11,17 @@
                     <th scope="col">Mode</th>
                     <th scope="col">Note</th>
                     <th scope="col">Recipt</th>
-                    <th scope="col">Date</th>
+                    <th scope="col" style="width: 200px;">Date</th>
 
                 </tr>
             </thead>
             <tbody>
-                <!-- <tr>
-                    <th scope="row">1</th>
-                    <td>Credit</td>
-                    <td>1025</td>
-                    <td>Gift</td>
-                    <td>Cash</td>
-                    <td>Brothers return gift</td>
-                    <td>img</td>
-                    <td>10th oct, 2021 time: 9:36</td>
-                </tr> -->
+               
+                <%var j = 0;%>
                 <%for(var i = 0; i < transactions.length;i++){%>
-                    <%if(transactions[i].userid == User._id){%>
+                    <%if(transactions[i].userid == User._id){ j++;%>
                 <tr>
-                    <th scope="row"><%=i+1%></th>
+                    <th scope="row"><%=j%></th>
                     <td><%=transactions[i].flow%></td>
                     <td><%=transactions[i].amount%></td>
                     <td><%=transactions[i].category%></td>
@@ -41,9 +33,12 @@
                 
                 <%}%>
                 <%}%>
-                
             </tbody>
         </table>
+            <%if(j==0){%>
+                 <h4>No Transactions</h4>  
+            <%}%>
     </div>
 
+    <div style="height: 200px;"></div>
     <%- include('_footer'); -%>
