@@ -5,17 +5,26 @@
         <form class="mx-auto" style="width: 300px;">
    
             <div class="my-3">
+                <input type="number" class="form-control" id="Projected Income" placeholder="Projected Income" autocomplete="off">  
+            </div>
         
-                <input type="password" class="form-control" id="Projected Income" placeholder="Projected Income" autocomplete="off">  
+            <div class="my-3">
+                <input type="number" class="form-control" id="Target Grocery Expense" placeholder="Target Grocery Expense" autocomplete="off">  
+            </div>
+        
+            <div class="my-3">
+                <input type="number" class="form-control" id="Target Transportation Expense" placeholder="Target Transportation Expense" autocomplete="off">  
             </div>
         
         
-           <div class="my-3">
-        
-               <input type="password" class="form-control" id="Target Savings" placeholder="Target Savings" autocomplete="off">
+            <div class="my-3">
+               <input type="number" class="form-control" id="Target Education Expense" placeholder="Target Education Expense" autocomplete="off">
             </div>
             <div class="my-3">
-        
+               <input type="number" class="form-control" id="Target Other Expense" placeholder="Target Other Expense" autocomplete="off">
+            </div>
+
+            <div class="my-3">
                 <button type="submit" class="btn btn-danger">Set Target</button>
             </div>
           </form>
@@ -29,12 +38,12 @@
         <script>
         var ctx = document.getElementById('targetchart').getContext('2d');
         var myChart = new Chart(ctx, {
-            type: 'doughnut',
+            type: 'polarArea',
             data: {
-                labels: ['Income', 'Expense', 'Savings', 'Savings Target'],
+                labels: ['Projected Income', 'Target Grocery Expense', 'Target Transportation Expense', 'Target Education Expense','Target Other Expense','Savings'],
                 datasets: [{
                     label: 'Financial Target',
-                    data: [120, 90, 30, 50],
+                    data: [120, 90, 30, 50,32,53],
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.2)',
                         'rgba(54, 162, 235, 0.2)',
