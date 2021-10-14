@@ -76,7 +76,10 @@ const userSchema = new mongoose.Schema({
     password: String,
     balance: Number,
     totalCredit: Number,
-    totalDebit: Number
+    totalDebit: Number,
+    xsavings:Number,
+    xincome:Number,
+    xexpense:Number
 });
 
 
@@ -176,6 +179,10 @@ app.get("/history", function (req, res) {
         res.redirect("login");
     }
 });
+
+app.get("/target", function (req,res) { 
+    res.render("target",{User:req.user});
+ });
 
 app.post("/tracker", function (req, res) {
     req.logout();

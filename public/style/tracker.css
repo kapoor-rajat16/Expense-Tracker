@@ -90,4 +90,21 @@ padding-bottom: 70px;
       text-align: center;
   }
 
+  .chartBox{
+      width: 400px;
+    display: block;
+    margin: auto;
+  }
+  .chartBoxtarget{
+      width: 350px;
+    display: block;
+    margin: auto;
+  }
+
   
+  @media screen and (min-width: 1000px) {
+    .tar{
+        position: relative;
+        left: 150px;
+    }
+}
