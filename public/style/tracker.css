@@ -91,7 +91,7 @@ padding-bottom: 70px;
   }
 
   .chartBox{
-      width: 400px;
+      width: 350px;
     display: block;
     margin: auto;
   }
@@ -107,4 +107,11 @@ padding-bottom: 70px;
         position: relative;
         left: 150px;
     }
+}
+
+h3{
+    font-family: Ubuntu;
+    color: #ff4c68;
+    font-weight: 500;
+    padding: 2%;
 }
