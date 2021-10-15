@@ -1,0 +1,41 @@
+<%- include('_header'); -%>
+
+    <form method="post" action="/uploadRecipts" class="mx-auto" style="width: 300px;">
+        <label for="imgtitle" class="upload-lable">Recipt Title</label>
+        <div class="mb-3">
+            <input type="text" class="form-control" id="imgtitle" name="imgtitle" placeholder="Image Title"
+                autocomplete="off" required>
+        </div>
+        <div class="my-3">
+            <label for="desc" class="upload-lable">Recipt Description</label>
+            <textarea class="form-control" style="width: 300px;" id="desc" name="desc" value="" rows="3"
+                placeholder="Description" required>
+        </textarea>
+        </div>
+        <div>
+            <label for="image" class="upload-lable">Choose Recipt</label>
+            <input type="file" id="image" name="image" value="" required>
+        </div>
+        <div class="my-3">
+            <button type="submit" class="btn btn-danger">Upload</button>
+        </div>
+    </form>
+
+    <hr>
+
+    <h4>Uploaded Images</h4>
+    <div>
+        <% items.forEach(function(image) { %>
+            <div>
+                <div>
+                    <img src="data:image/<%=image.img.contentType%>;base64,<%=image.img.data.toString('base64')%>">
+                    <div>
+                        <h5><%= image.name %></h5>
+                        <p><%= image.desc %></p>
+                    </div>
+                </div>
+            </div>
+            <% }) %>
+    </div>
+
+<%- include('_footer'); -%>

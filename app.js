@@ -8,12 +8,16 @@ const passportLocalMongoose = require("passport-local-mongoose");
 const LocalStrategy = require('passport-local').Strategy;
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const findOrCreate = require('mongoose-findorcreate');
+const fs = require('fs');
+const path = require('path');
+const multer = require('multer');
 
 const app = express();
 app.set("view engine", "ejs");
 
 app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 app.use(session({
     secret: 'Our little secret.',
@@ -27,6 +31,46 @@ app.use(passport.session());
 
 mongoose.connect("mongodb://localhost:27017/etUserDB", { useNewUrlParser: true });
 
+var imageSchema = new mongoose.Schema({
+    userid: String,
+    name:String,
+    desc: String,
+    img:
+    {
+        data: Buffer,
+        contentType: String
+    }
+});
+
+const image = mongoose.model('Image', imageSchema);
+
+var storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads/')
+    },
+    filename: (req, file, cb) => {
+        let ext = path.extname(file.originalname)
+        cb(null, Date.now() + ext)
+    }
+});
+  
+var upload = multer({
+    storage: storage,
+    fileFilter: function (req,file,callback) {
+        if (
+            file.mimetype == 'image/png' ||
+            file.mimetype == 'image/jpg'
+        ) {
+            callback(null,true)
+        } else{
+            console.log('only jpg & png file supported!');
+            callback(null,false)
+        }
+    },
+    limits:{
+        fileSize:1024 * 1024 * 2
+    }
+    });
 
 const TransactionSchema = new mongoose.Schema({
 
@@ -227,6 +271,18 @@ app.post("/history", function (req, res) {
     res.redirect("/");
 });
 
+app.get('/uploadRecipts', (req, res) => {
+    image.find({}, (err, items) => {
+        if (err) {
+            console.log(err);
+            res.status(500).send('An error occurred', err);
+        }
+        else {
+            res.render('uploadRecipts', { items: items });
+        }
+    });
+});
+
 app.post("/auth/google/tracker", function (req, res) {
     req.logout();
     res.redirect("/");
@@ -361,6 +417,28 @@ app.post("/setTarget",function (req,res) {
     });
 });
 
+
+app.post('/uploadRecipts', upload.single('image'), (req, res, next) => {
+  
+    var obj = {
+        userid:req.user._id,
+        name: req.body.imgtitle,
+        desc: req.body.desc,
+        img: {
+            data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
+            contentType: 'image/png'
+        }
+    }
+    image.create(obj, (err, item) => {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            // item.save();
+            res.redirect('/');
+        }
+    });
+});
 
 app.listen(process.env.PORT || 3000, function () {
     console.log("Server is running on port 3000");

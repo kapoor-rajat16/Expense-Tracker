@@ -21,12 +21,15 @@
             </div>
 
             <div class="my-3">
-                <button type="submit" class="btn btn-danger" onclick="UpdateData">Set Target</button>
+                <button type="submit" class="btn btn-danger" onclick="UpdateData">Set/Update Target</button>
             </div>
           </form>
             
         </form>
     </div>
+
+
+    <!-- chart -->
     <div class="col-lg-8">
         <div class="chartBoxtarget">
             <canvas id="targetchart"></canvas>
@@ -34,13 +37,13 @@
         </div>
         <script>
         var ctx = document.getElementById('targetchart').getContext('2d');
-        var myChart = new Chart(ctx, {
+        var myChart = new Chart(ctx,  {
             type: 'pie',
             data: {
                 labels: ['Projected Income', 'Target Grocery Expense', 'Target Transportation Expense', 'Target Education Expense','Target Other Expense','Savings'],
                 datasets: [{
                     label: 'Financial Target',
-                    data: [123, 90, 30, 50,62,53],
+                    data: [600, 90, 30, 50,62,53],
                     backgroundColor: [
                         'rgba(743, 33, 192, 0.2)',
                         'rgba(54, 162, 235, 0.2)',
@@ -84,14 +87,5 @@
 <div style="height: 100px;">
 
 </div>
-
-
-
-
-
-
-
-
-
 
 <%- include('_footer'); -%>
