@@ -77,9 +77,30 @@ const userSchema = new mongoose.Schema({
     balance: Number,
     totalCredit: Number,
     totalDebit: Number,
-    xsavings:Number,
-    xincome:Number,
-    xexpense:Number
+    xsavings:{
+        type:Number,
+        default:0
+    },
+    xincome:{
+        type:Number,
+        default:0
+    },
+    xgrocery:{
+        type:Number,
+        default:0
+    },
+    xtranspartation:{
+        type:Number,
+        default:0
+    },
+    xeducation:{
+        type:Number,
+        default:0
+    },
+    xother:{
+        type:Number,
+        default:0
+    }
 });
 
 
@@ -181,7 +202,12 @@ app.get("/history", function (req, res) {
 });
 
 app.get("/target", function (req,res) { 
-    res.render("target",{User:req.user});
+    if (req.isAuthenticated()) {
+        res.render("target",{User:req.user});
+    }
+    else {
+        res.redirect("login");
+    }
  });
 
 app.post("/tracker", function (req, res) {
@@ -313,14 +339,28 @@ app.post("/subMoney", function (req, res) {
     User.findOneAndUpdate({ _id: req.user._id }, { $inc: { totalDebit: req.body.expense } }, function (err, data) {
         if (err) {
             console.log(err);
-            req.redirect("income");
+            res.redirect("income");
         }
         else {
             console.log(data);
         }
     });
-
     res.redirect("income");
+
+});
+
+app.post("/setTarget",function (req,res) {
+    let TSavings = req.body.ProjectedIncome-req.body.TGroceryExpense-req.body.TTransportationExpense-req.body.TEducationExpense-req.body.TOtherExpense;
+    User.findOneAndUpdate({_id:req.user._id},{xincome:req.body.ProjectedIncome,xgrocery:req.body.TGroceryExpense,xtranspartation:req.body.TTransportationExpense,xeducation:req.body.TEducationExpense,xother:req.body.TOtherExpense,xsavings:TSavings},function (err,data) {
+        if (err) {
+            console.log(err);
+            res.redirect("target");
+        }
+        else{
+            console.log(data);
+            res.redirect("target");
+        }
+    });
 });
 
 app.listen(process.env.PORT || 3000, function () {

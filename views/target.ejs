@@ -2,26 +2,26 @@
 
 <div class="row">
     <div class="col-lg-4 tar">
-        <form class="mx-auto" style="width: 300px;">
+        <form method="post" action="/setTarget" class="mx-auto" style="width: 300px;">
    
             <div class="my-3">
-                <input type="number" class="form-control" id="Projected Income" placeholder="Projected Income" autocomplete="off">  
+                <input type="number" class="form-control" name="ProjectedIncome" placeholder="Projected Income" autocomplete="off">  
             </div>
         
             <div class="my-3">
-                <input type="number" class="form-control" id="Target Grocery Expense" placeholder="Target Grocery Expense" autocomplete="off">  
+                <input type="number" class="form-control" name="TGroceryExpense" placeholder="Target Grocery Expense" autocomplete="off">  
             </div>
         
             <div class="my-3">
-                <input type="number" class="form-control" id="Target Transportation Expense" placeholder="Target Transportation Expense" autocomplete="off">  
+                <input type="number" class="form-control" name="TTransportationExpense" placeholder="Target Transportation Expense" autocomplete="off">  
             </div>
         
         
             <div class="my-3">
-               <input type="number" class="form-control" id="Target Education Expense" placeholder="Target Education Expense" autocomplete="off">
+               <input type="number" class="form-control" name="TEducationExpense" placeholder="Target Education Expense" autocomplete="off">
             </div>
             <div class="my-3">
-               <input type="number" class="form-control" id="Target Other Expense" placeholder="Target Other Expense" autocomplete="off">
+               <input type="number" class="form-control" name="TOtherExpense" placeholder="Target Other Expense" autocomplete="off">
             </div>
 
             <div class="my-3">
@@ -34,6 +34,7 @@
     <div class="col-lg-8">
         <div class="chartBoxtarget">
             <canvas id="targetchart"></canvas>
+          
         </div>
         <script>
         var ctx = document.getElementById('targetchart').getContext('2d');
@@ -43,7 +44,7 @@
                 labels: ['Projected Income', 'Target Grocery Expense', 'Target Transportation Expense', 'Target Education Expense','Target Other Expense','Savings'],
                 datasets: [{
                     label: 'Financial Target',
-                    data: [220, 90, 30, 50,62,53],
+                    data: [123, 90, 30, 50,62,53],
                     backgroundColor: [
                         'rgba(743, 33, 192, 0.2)',
                         'rgba(54, 162, 235, 0.2)',
