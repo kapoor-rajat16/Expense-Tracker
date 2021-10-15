@@ -5,27 +5,23 @@
         <form method="post" action="/setTarget" class="mx-auto" style="width: 300px;">
    
             <div class="my-3">
-                <input type="number" class="form-control" name="ProjectedIncome" placeholder="Projected Income" autocomplete="off">  
-            </div>
-        
-            <div class="my-3">
-                <input type="number" class="form-control" name="TGroceryExpense" placeholder="Target Grocery Expense" autocomplete="off">  
-            </div>
-        
-            <div class="my-3">
-                <input type="number" class="form-control" name="TTransportationExpense" placeholder="Target Transportation Expense" autocomplete="off">  
-            </div>
-        
-        
-            <div class="my-3">
-               <input type="number" class="form-control" name="TEducationExpense" placeholder="Target Education Expense" autocomplete="off">
+                <input type="number" class="form-control" name="ProjectedIncome" id="ProjectedIncome" placeholder="Projected Income" autocomplete="off" required>  
             </div>
             <div class="my-3">
-               <input type="number" class="form-control" name="TOtherExpense" placeholder="Target Other Expense" autocomplete="off">
+                <input type="number" class="form-control" name="TGroceryExpense" id="TGroceryExpense" placeholder="Target Grocery Expense" autocomplete="off"  required>  
+            </div>
+            <div class="my-3">
+                <input type="number" class="form-control" name="TTransportationExpense" placeholder="Target Transportation Expense" autocomplete="off" required>  
+            </div>
+            <div class="my-3">
+               <input type="number" class="form-control" name="TEducationExpense" placeholder="Target Education Expense" autocomplete="off" required>
+            </div>
+            <div class="my-3">
+               <input type="number" class="form-control" name="TOtherExpense" placeholder="Target Other Expense" autocomplete="off" required>
             </div>
 
             <div class="my-3">
-                <button type="submit" class="btn btn-danger">Set Target</button>
+                <button type="submit" class="btn btn-danger" onclick="UpdateData">Set Target</button>
             </div>
           </form>
             
@@ -72,6 +68,13 @@
                 }
             }
         });
+
+        function UpdateData() {
+            console.log("helolo");
+            targetchart.data.datasets[0].data[1] = 6000;
+            // targetChart.data.labels[6] = "new Added";
+            targetchart.update();
+        }
         </script>
     </div>
    
