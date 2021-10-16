@@ -1,32 +1,72 @@
 <%- include('_header'); -%>
     <div class="row">
+
         <div class="col-lg-6">
-            <div class="chartBox" style="margin-left: 250px;">
-                <h3>Target</h3>
-                <canvas id="chart"></canvas>
+            <div class="chart chart1 mx-auto">
+                <h4>Current Status</h4>
+                <canvas id="targetchart"></canvas>
+            </div>
+            <div style="display: none;">
+                <h6 id="xincome">
+                    <%=User.xincome%>
+                </h6>
+                <h6 id="xgrocery">
+                    <%=User.xgrocery%>
+                </h6>
+                <h6 id="xtranspartation">
+                    <%=User.xtranspartation%>
+                </h6>
+                <h6 id="xeducation">
+                    <%=User.xeducation%>
+                </h6>
+                <h6 id="xother">
+                    <%=User.xother%>
+                </h6>
+                <h6 id="xsavings">
+                    <%=User.xsavings%>
+                </h6>
+                <h6 id="balance">
+                    <%=User.balance%>
+                </h6>
+                <h6 id="totalCredit">
+                    <%=User.totalCredit%>
+                </h6>
+                <h6 id="totalDebit">
+                    <%=User.totalDebit%>
+                </h6>
             </div>
             <script>
-                var ctx = document.getElementById('chart').getContext('2d');
+                var xincome = document.getElementById("xincome").innerHTML;
+                var xgrocery = document.getElementById("xgrocery").innerHTML;
+                var xtranspartation = document.getElementById("xtranspartation").innerHTML;
+                var xeducation = document.getElementById("xeducation").innerHTML;
+                var xother = document.getElementById("xother").innerHTML;
+                var xsavings = document.getElementById("xsavings").innerHTML;
+                var balance = document.getElementById("balance").innerHTML;
+                var totalCredit = document.getElementById("totalCredit").innerHTML;
+                var totalDebit = document.getElementById("totalDebit").innerHTML;
+
+                var ctx = document.getElementById('targetchart').getContext('2d');
                 var myChart = new Chart(ctx, {
                     type: 'doughnut',
                     data: {
-                        labels: ['Income', 'Expense', 'Savings', 'Savings Target'],
+                        labels: ['Current Income', 'Current Expense', 'Current Savings'],
                         datasets: [{
-                            label: 'Expense Summery',
-                            data: [120, 90, 30, 50],
+                            label: 'Financial Target',
+                            data: [totalCredit, totalDebit, balance],
                             backgroundColor: [
-                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(743, 33, 192, 0.2)',
                                 'rgba(54, 162, 235, 0.2)',
                                 'rgba(255, 206, 86, 0.2)',
-                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(255, 99, 13, 0.2)',
                                 'rgba(153, 102, 255, 0.2)',
                                 'rgba(255, 159, 64, 0.2)'
                             ],
                             borderColor: [
-                                'rgba(255, 99, 132, 1)',
+                                'rgba(743, 33, 192, 1)',
                                 'rgba(54, 162, 235, 1)',
                                 'rgba(255, 206, 86, 1)',
-                                'rgba(75, 192, 192, 1)',
+                                'rgba(255, 99, 13, 1)',
                                 'rgba(153, 102, 255, 1)',
                                 'rgba(255, 159, 64, 1)'
                             ],
@@ -41,37 +81,81 @@
                         }
                     }
                 });
+
             </script>
-
-
         </div>
+
+       
         <div class="col-lg-6">
-            <div class="chartBox" style="margin-right: 300px;">
-                <h3>Current Financial Report</h3>
+            <div class="chart chart1 mx-auto">
+                <h4>Target</h4>
                 <canvas id="chart2"></canvas>
             </div>
+            <div style="display: none;">
+                <h6 id="xincome">
+                    <%=User.xincome%>
+                </h6>
+                <h6 id="xgrocery">
+                    <%=User.xgrocery%>
+                </h6>
+                <h6 id="xtranspartation">
+                    <%=User.xtranspartation%>
+                </h6>
+                <h6 id="xeducation">
+                    <%=User.xeducation%>
+                </h6>
+                <h6 id="xother">
+                    <%=User.xother%>
+                </h6>
+                <h6 id="xsavings">
+                    <%=User.xsavings%>
+                </h6>
+                <h6 id="balance">
+                    <%=User.balance%>
+                </h6>
+                <h6 id="totalCredit">
+                    <%=User.totalCredit%>
+                </h6>
+                <h6 id="totalDebit">
+                    <%=User.totalDebit%>
+                </h6>
+                <h6 id="xexpense">
+                    <%=User.xexpense%>
+                </h6>
+            </div>
             <script>
+                var xincome = document.getElementById("xincome").innerHTML;
+                var xgrocery = document.getElementById("xgrocery").innerHTML;
+                var xtranspartation = document.getElementById("xtranspartation").innerHTML;
+                var xeducation = document.getElementById("xeducation").innerHTML;
+                var xother = document.getElementById("xother").innerHTML;
+                var xsavings = document.getElementById("xsavings").innerHTML;
+                var balance = document.getElementById("balance").innerHTML;
+                var totalCredit = document.getElementById("totalCredit").innerHTML;
+                var totalDebit = document.getElementById("totalDebit").innerHTML;
+                var xexpense = document.getElementById("xexpense").innerHTML;
+
                 var ctx = document.getElementById('chart2').getContext('2d');
                 var myChart = new Chart(ctx, {
                     type: 'doughnut',
                     data: {
-                        labels: ['Income', 'Expense', 'Savings', 'Savings Target'],
+                        labels: ['Projected Income', 'Projected Expense', 'Target Savings'],
                         datasets: [{
-                            label: 'Expense Summery',
-                            data: [130, 30, 40, 10],
+                            label: 'Financial Target',
+                            data: [xincome, xexpense, xsavings],
                             backgroundColor: [
-                                'rgba(255, 99, 132, 0.2)',
+                                'rgba(743, 33, 192, 0.2)',
                                 'rgba(54, 162, 235, 0.2)',
                                 'rgba(255, 206, 86, 0.2)',
-                                'rgba(75, 192, 192, 0.2)',
+                                'rgba(255, 99, 13, 0.2)',
                                 'rgba(153, 102, 255, 0.2)',
                                 'rgba(255, 159, 64, 0.2)'
                             ],
                             borderColor: [
-                                'rgba(255, 99, 132, 1)',
+                                'rgba(743, 33, 192, 1)',
                                 'rgba(54, 162, 235, 1)',
                                 'rgba(255, 206, 86, 1)',
-                                'rgba(75, 192, 192, 1)',
+                                'rgba(255, 99, 13, 1)',
                                 'rgba(153, 102, 255, 1)',
                                 'rgba(255, 159, 64, 1)'
                             ],
@@ -86,13 +170,451 @@
                         }
                     }
                 });
+
             </script>
-
-
         </div>
-    </div>
 
-    <div style="height: 100px;">
+        <div class="col-lg-6">
+            <div class="chart chart1 mx-auto">
+                <h4>Expense Target</h4>
+                <canvas id="chartexpense"></canvas>
+            </div>
+            <div style="display: none;">
+                <h6 id="xincome">
+                    <%=User.xincome%>
+                </h6>
+                <h6 id="xgrocery">
+                    <%=User.xgrocery%>
+                </h6>
+                <h6 id="xtranspartation">
+                    <%=User.xtranspartation%>
+                </h6>
+                <h6 id="xeducation">
+                    <%=User.xeducation%>
+                </h6>
+                <h6 id="xother">
+                    <%=User.xother%>
+                </h6>
+                <h6 id="xsavings">
+                    <%=User.xsavings%>
+                </h6>
+                <h6 id="balance">
+                    <%=User.balance%>
+                </h6>
+                <h6 id="totalCredit">
+                    <%=User.totalCredit%>
+                </h6>
+                <h6 id="totalDebit">
+                    <%=User.totalDebit%>
+                </h6>
+                <h6 id="xexpense">
+                    <%=User.xexpense%>
+                </h6>
+            </div>
+            <script>
+                var xincome = document.getElementById("xincome").innerHTML;
+                var xgrocery = document.getElementById("xgrocery").innerHTML;
+                var xtranspartation = document.getElementById("xtranspartation").innerHTML;
+                var xeducation = document.getElementById("xeducation").innerHTML;
+                var xother = document.getElementById("xother").innerHTML;
+                var xsavings = document.getElementById("xsavings").innerHTML;
+                var balance = document.getElementById("balance").innerHTML;
+                var totalCredit = document.getElementById("totalCredit").innerHTML;
+                var totalDebit = document.getElementById("totalDebit").innerHTML;
+                var xexpense = document.getElementById("xexpense").innerHTML;
+
+                var ctx = document.getElementById('chartexpense').getContext('2d');
+                var myChart = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Grocery', 'Transportation', 'Education','Other'],
+                        datasets: [{
+                            label: 'Expense Target',
+                            data: [xgrocery, xtranspartation,xeducation,xother],
+                            backgroundColor: [
+                                'rgba(743, 33, 192, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 206, 86, 0.2)',
+                                'rgba(255, 99, 13, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(255, 159, 64, 0.2)'
+                            ],
+                            borderColor: [
+                                'rgba(743, 33, 192, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(255, 99, 13, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+
+            </script>
+        </div>
+
+
+        <div class="col-lg-6">
+            <div class="chart chart1 mx-auto">
+                <h4>Projected Vs Current Income</h4>
+                <canvas id="chart3"></canvas>
+            </div>
+            <div style="display: none;">
+                <h6 id="xincome">
+                    <%=User.xincome%>
+                </h6>
+                <h6 id="xgrocery">
+                    <%=User.xgrocery%>
+                </h6>
+                <h6 id="xtranspartation">
+                    <%=User.xtranspartation%>
+                </h6>
+                <h6 id="xeducation">
+                    <%=User.xeducation%>
+                </h6>
+                <h6 id="xother">
+                    <%=User.xother%>
+                </h6>
+                <h6 id="xsavings">
+                    <%=User.xsavings%>
+                </h6>
+                <h6 id="balance">
+                    <%=User.balance%>
+                </h6>
+                <h6 id="totalCredit">
+                    <%=User.totalCredit%>
+                </h6>
+                <h6 id="totalDebit">
+                    <%=User.totalDebit%>
+                </h6>
+                <h6 id="xexpense">
+                    <%=User.xexpense%>
+                </h6>
+            </div>
+            <script>
+                var xincome = document.getElementById("xincome").innerHTML;
+                var xgrocery = document.getElementById("xgrocery").innerHTML;
+                var xtranspartation = document.getElementById("xtranspartation").innerHTML;
+                var xeducation = document.getElementById("xeducation").innerHTML;
+                var xother = document.getElementById("xother").innerHTML;
+                var xsavings = document.getElementById("xsavings").innerHTML;
+                var balance = document.getElementById("balance").innerHTML;
+                var totalCredit = document.getElementById("totalCredit").innerHTML;
+                var totalDebit = document.getElementById("totalDebit").innerHTML;
+                var xexpense = document.getElementById("xexpense").innerHTML;
+
+                var ctx = document.getElementById('chart3').getContext('2d');
+                var myChart = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Current Income','Projected Income'],
+                        datasets: [{
+                            label: 'Financial Target',
+                            data: [totalCredit, xincome],
+                            backgroundColor: [
+                                'rgba(743, 33, 192, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 206, 86, 0.2)',
+                                'rgba(255, 99, 13, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(255, 159, 64, 0.2)'
+                            ],
+                            borderColor: [
+                                'rgba(743, 33, 192, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(255, 99, 13, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+
+            </script>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="chart chart1 mx-auto">
+                <h4>Target Vs Current Savings</h4>
+                <canvas id="chart4"></canvas>
+            </div>
+            <div style="display: none;">
+                <h6 id="xincome">
+                    <%=User.xincome%>
+                </h6>
+                <h6 id="xgrocery">
+                    <%=User.xgrocery%>
+                </h6>
+                <h6 id="xtranspartation">
+                    <%=User.xtranspartation%>
+                </h6>
+                <h6 id="xeducation">
+                    <%=User.xeducation%>
+                </h6>
+                <h6 id="xother">
+                    <%=User.xother%>
+                </h6>
+                <h6 id="xsavings">
+                    <%=User.xsavings%>
+                </h6>
+                <h6 id="balance">
+                    <%=User.balance%>
+                </h6>
+                <h6 id="totalCredit">
+                    <%=User.totalCredit%>
+                </h6>
+                <h6 id="totalDebit">
+                    <%=User.totalDebit%>
+                </h6>
+                <h6 id="xexpense">
+                    <%=User.xexpense%>
+                </h6>
+            </div>
+            <script>
+                var xincome = document.getElementById("xincome").innerHTML;
+                var xgrocery = document.getElementById("xgrocery").innerHTML;
+                var xtranspartation = document.getElementById("xtranspartation").innerHTML;
+                var xeducation = document.getElementById("xeducation").innerHTML;
+                var xother = document.getElementById("xother").innerHTML;
+                var xsavings = document.getElementById("xsavings").innerHTML;
+                var balance = document.getElementById("balance").innerHTML;
+                var totalCredit = document.getElementById("totalCredit").innerHTML;
+                var totalDebit = document.getElementById("totalDebit").innerHTML;
+                var xexpense = document.getElementById("xexpense").innerHTML;
+
+                var ctx = document.getElementById('chart4').getContext('2d');
+                var myChart = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Current Savings', 'Target Savings'],
+                        datasets: [{
+                            label: 'Financial Target',
+                            data: [balance, xsavings],
+                            backgroundColor: [
+                                'rgba(743, 33, 192, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 206, 86, 0.2)',
+                                'rgba(255, 99, 13, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(255, 159, 64, 0.2)'
+                            ],
+                            borderColor: [
+                                'rgba(743, 33, 192, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(255, 99, 13, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+
+            </script>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="chart chart1 mx-auto">
+                <h4>Target Vs Current Savings</h4>
+                <canvas id="chart5"></canvas>
+            </div>
+            <div style="display: none;">
+                <h6 id="xincome">
+                    <%=User.xincome%>
+                </h6>
+                <h6 id="xgrocery">
+                    <%=User.xgrocery%>
+                </h6>
+                <h6 id="xtranspartation">
+                    <%=User.xtranspartation%>
+                </h6>
+                <h6 id="xeducation">
+                    <%=User.xeducation%>
+                </h6>
+                <h6 id="xother">
+                    <%=User.xother%>
+                </h6>
+                <h6 id="xsavings">
+                    <%=User.xsavings%>
+                </h6>
+                <h6 id="balance">
+                    <%=User.balance%>
+                </h6>
+                <h6 id="totalCredit">
+                    <%=User.totalCredit%>
+                </h6>
+                <h6 id="totalDebit">
+                    <%=User.totalDebit%>
+                </h6>
+                <h6 id="xexpense">
+                    <%=User.xexpense%>
+                </h6>
+            </div>
+            <script>
+                var xincome = document.getElementById("xincome").innerHTML;
+                var xgrocery = document.getElementById("xgrocery").innerHTML;
+                var xtranspartation = document.getElementById("xtranspartation").innerHTML;
+                var xeducation = document.getElementById("xeducation").innerHTML;
+                var xother = document.getElementById("xother").innerHTML;
+                var xsavings = document.getElementById("xsavings").innerHTML;
+                var balance = document.getElementById("balance").innerHTML;
+                var totalCredit = document.getElementById("totalCredit").innerHTML;
+                var totalDebit = document.getElementById("totalDebit").innerHTML;
+                var xexpense = document.getElementById("xexpense").innerHTML;
+
+                var ctx = document.getElementById('chart5').getContext('2d');
+                var myChart = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Current Expense', 'Target Expense'],
+                        datasets: [{
+                            label: 'Financial Target',
+                            data: [totalDebit, xexpense],
+                            backgroundColor: [
+                                'rgba(743, 33, 192, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 206, 86, 0.2)',
+                                'rgba(255, 99, 13, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(255, 159, 64, 0.2)'
+                            ],
+                            borderColor: [
+                                'rgba(743, 33, 192, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(255, 99, 13, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+
+            </script>
+        </div>
+
+        <div class="col-lg-6">
+            <div class="chart chart1 mx-auto">
+                <h4>Target Vs Current Savings</h4>
+                <canvas id="chart6"></canvas>
+            </div>
+            <div style="display: none;">
+                <h6 id="xincome">
+                    <%=User.xincome%>
+                </h6>
+                <h6 id="xgrocery">
+                    <%=User.xgrocery%>
+                </h6>
+                <h6 id="xtranspartation">
+                    <%=User.xtranspartation%>
+                </h6>
+                <h6 id="xeducation">
+                    <%=User.xeducation%>
+                </h6>
+                <h6 id="xother">
+                    <%=User.xother%>
+                </h6>
+                <h6 id="xsavings">
+                    <%=User.xsavings%>
+                </h6>
+                <h6 id="balance">
+                    <%=User.balance%>
+                </h6>
+                <h6 id="totalCredit">
+                    <%=User.totalCredit%>
+                </h6>
+                <h6 id="totalDebit">
+                    <%=User.totalDebit%>
+                </h6>
+                <h6 id="xexpense">
+                    <%=User.xexpense%>
+                </h6>
+            </div>
+            <script>
+                var xincome = document.getElementById("xincome").innerHTML;
+                var xgrocery = document.getElementById("xgrocery").innerHTML;
+                var xtranspartation = document.getElementById("xtranspartation").innerHTML;
+                var xeducation = document.getElementById("xeducation").innerHTML;
+                var xother = document.getElementById("xother").innerHTML;
+                var xsavings = document.getElementById("xsavings").innerHTML;
+                var balance = document.getElementById("balance").innerHTML;
+                var totalCredit = document.getElementById("totalCredit").innerHTML;
+                var totalDebit = document.getElementById("totalDebit").innerHTML;
+                var xexpense = document.getElementById("xexpense").innerHTML;
+
+                var ctx = document.getElementById('chart6').getContext('2d');
+                var myChart = new Chart(ctx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Target Savings'],
+                        datasets: [{
+                            label: 'Financial Target',
+                            data: [xexpense],
+                            backgroundColor: [
+                                'rgba(743, 33, 192, 0.2)',
+                                'rgba(54, 162, 235, 0.2)',
+                                'rgba(255, 206, 86, 0.2)',
+                                'rgba(255, 99, 13, 0.2)',
+                                'rgba(153, 102, 255, 0.2)',
+                                'rgba(255, 159, 64, 0.2)'
+                            ],
+                            borderColor: [
+                                'rgba(743, 33, 192, 1)',
+                                'rgba(54, 162, 235, 1)',
+                                'rgba(255, 206, 86, 1)',
+                                'rgba(255, 99, 13, 1)',
+                                'rgba(153, 102, 255, 1)',
+                                'rgba(255, 159, 64, 1)'
+                            ],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+
+            </script>
+        </div>
+
 
     </div>
     <%- include('_footer'); -%>

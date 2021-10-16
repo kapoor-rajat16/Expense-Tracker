@@ -52,7 +52,7 @@
             
         var ctx = document.getElementById('targetchart').getContext('2d');
         var myChart = new Chart(ctx,  {
-            type: 'pie',
+            type: 'doughnut',
             data: {
                 labels: ['Projected Income', 'Target Grocery Expense', 'Target Transportation Expense', 'Target Education Expense','Target Other Expense','Savings'],
                 datasets: [{
@@ -107,7 +107,7 @@
             
         var ctx = document.getElementById('targetchart2').getContext('2d');
         var myChart = new Chart(ctx,  {
-            type: 'pie',
+            type: 'doughnut',
             data: {
                 labels: ['Projected Income', 'Target Savings'],
                 datasets: [{

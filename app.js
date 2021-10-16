@@ -145,6 +145,10 @@ const userSchema = new mongoose.Schema({
     xother:{
         type:Number,
         default:0
+    },
+    xexpense:{
+        type:Number,
+        default:0
     }
 });
 
@@ -227,7 +231,7 @@ app.get("/auth/google/income", function (req, res) {
 app.get("/charts", function (req, res) {
     if (req.isAuthenticated()) {
         // res.sendFile(__dirname + "/charts.html");
-        res.render("charts")
+        res.render("charts",{User:req.user})
     }
     else {
         res.redirect("login");
@@ -415,8 +419,9 @@ app.post("/subMoney", function (req, res) {
 });
 
 app.post("/setTarget",function (req,res) {
+    let expectedExpense = req.body.TGroceryExpense+req.body.TTransportationExpense+req.body.TEducationExpense+req.body.TOtherExpense;
     let TSavings = req.body.ProjectedIncome-req.body.TGroceryExpense-req.body.TTransportationExpense-req.body.TEducationExpense-req.body.TOtherExpense;
-    User.findOneAndUpdate({_id:req.user._id},{xincome:req.body.ProjectedIncome,xgrocery:req.body.TGroceryExpense,xtranspartation:req.body.TTransportationExpense,xeducation:req.body.TEducationExpense,xother:req.body.TOtherExpense,xsavings:TSavings},function (err,data) {
+    User.findOneAndUpdate({_id:req.user._id},{xincome:req.body.ProjectedIncome,xgrocery:req.body.TGroceryExpense,xtranspartation:req.body.TTransportationExpense,xeducation:req.body.TEducationExpense,xother:req.body.TOtherExpense,xsavings:TSavings,xexpense:expectedExpense},function (err,data) {
         
         if (err) {
             console.log(err);
