@@ -95,22 +95,20 @@ padding-bottom: 70px;
 
   .chartBox{
       width: 350px;
-    display: block;
-    margin: auto;
+      padding: 2%;
   }
   .chartBoxtarget{
       width: 350px;
-    display: block;
-    margin: auto;
+    padding: 2%;
   }
 
   
-  @media screen and (min-width: 1000px) {
+  /* @media screen and (min-width: 1000px) {
     .tar{
         position: relative;
         left: 150px;
     }
-}
+} */
 
 h3{
     font-family: Ubuntu;

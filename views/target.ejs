@@ -91,7 +91,7 @@
     
     <div class="col-lg-4">
         <div class="chartBoxtarget">
-            <canvas id="targetchart"></canvas>
+            <canvas id="targetchart2"></canvas>
         </div>
         <div style="display: none;">
             <h6 id="xincome"><%=User.xincome%></h6>
@@ -103,20 +103,16 @@
         </div>
         <script>
             var xincome = document.getElementById("xincome").innerHTML;
-            var xgrocery = document.getElementById("xgrocery").innerHTML;
-            var xtranspartation = document.getElementById("xtranspartation").innerHTML;
-            var xeducation = document.getElementById("xeducation").innerHTML;
-            var xother = document.getElementById("xother").innerHTML;
             var xsavings = document.getElementById("xsavings").innerHTML;
             
-        var ctx = document.getElementById('targetchart').getContext('2d');
+        var ctx = document.getElementById('targetchart2').getContext('2d');
         var myChart = new Chart(ctx,  {
             type: 'pie',
             data: {
-                labels: ['Projected Income', 'Target Grocery Expense', 'Target Transportation Expense', 'Target Education Expense','Target Other Expense','Savings'],
+                labels: ['Projected Income', 'Target Savings'],
                 datasets: [{
                     label: 'Financial Target',
-                    data: [xincome, xgrocery, xtranspartation, xeducation,xother,xsavings],
+                    data: [xincome, xsavings],
                     backgroundColor: [
                         'rgba(743, 33, 192, 0.2)',
                         'rgba(54, 162, 235, 0.2)',
