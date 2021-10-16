@@ -452,6 +452,16 @@ app.post('/uploadRecipts', upload.single('image'), async(req,res) => {
     
 });
 
+function downloadHistory() {
+    console.log("initiated");
+    const element = document.getElementById("transactionHistory");
+    html2pdf()
+    .from(element)
+    .save();
+}
+    
+
+
 app.listen(process.env.PORT || 3000, function () {
     console.log("Server is running on port 3000");
 });
