@@ -187,7 +187,6 @@ app.get('/auth/google',
     passport.authenticate('google', { scope: ['profile'] }));
 
 app.get("/auth/google/tracker", function (req, res) {
-    // res.sendFile(__dirname + "/tracker.html");
     res.render("tracker");
 });
 
@@ -201,7 +200,6 @@ app.get("/signup", function (req, res) {
 
 app.get("/tracker", function (req, res) {
     if (req.isAuthenticated()) {
-        // res.sendFile(__dirname + "/tracker.html");
         res.render("tracker", { User: req.user });
     }
     else {
@@ -212,7 +210,6 @@ app.get("/tracker", function (req, res) {
 app.get("/income", function (req, res) {
 
     if (req.isAuthenticated()) {
-        // res.sendFile(__dirname + "/income.html");
         res.render("income", { User: req.user });
     }
     else {
@@ -221,7 +218,6 @@ app.get("/income", function (req, res) {
 });
 app.get("/auth/google/income", function (req, res) {
     if (req.isAuthenticated()) {
-        // res.sendFile(__dirname + "/income.html");
         res.render("income");
     }
     else {
@@ -230,7 +226,6 @@ app.get("/auth/google/income", function (req, res) {
 });
 app.get("/charts", function (req, res) {
     if (req.isAuthenticated()) {
-        // res.sendFile(__dirname + "/charts.html");
         res.render("charts",{User:req.user})
     }
     else {
@@ -295,6 +290,14 @@ app.post("/charts", function (req, res) {
     res.redirect("/");
 });
 app.post("/history", function (req, res) {
+    req.logout();
+    res.redirect("/");
+});
+app.post("/target", function (req, res) {
+    req.logout();
+    res.redirect("/");
+});
+app.post("/uploadRecipts", function (req, res) {
     req.logout();
     res.redirect("/");
 });
