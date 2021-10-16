@@ -449,15 +449,7 @@ app.post('/uploadRecipts', upload.single('image'), async(req,res) => {
     } catch(error){
         console.log(error);
     }
-    // image.create(obj, (err, item) => {
-    //     if (err) {
-    //         console.log(err);
-    //     }
-    //     else {
-    //         // item.save();
-    //         res.redirect('/');
-    //     }
-    // });
+    
 });
 
 app.listen(process.env.PORT || 3000, function () {

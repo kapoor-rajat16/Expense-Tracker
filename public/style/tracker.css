@@ -75,6 +75,9 @@ padding-bottom: 70px;
     .bal{
         margin: 50px 0px;
     }
+    .urecipts{
+        margin-top: 50px;
+    }
 }
 
   .income-expense-input{
@@ -120,4 +123,28 @@ h3{
     font-family: Ubuntu;
     color: #ff4c68;
     font-weight: 500;
+}
+
+.urecipts{
+    font-family: Ubuntu;
+    color: #ff4c68;
+    text-decoration: underline;
+    font-weight: 500;
+}
+
+.recipts{
+    padding: 2%;
+}
+
+.recipt-title{
+    font-family: Ubuntu;
+    color: #000000;
+    text-decoration: underline;
+    font-weight: 500;
+}
+.recipt-desc{
+    font-family: Ubuntu;
+    color: #00000080;
+    font-weight: 300;
+    font-size: 90%;
 }

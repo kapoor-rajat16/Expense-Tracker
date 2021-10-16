@@ -25,17 +25,17 @@
         </form>
     </div>
     <div class="col-lg-6">
-        <h5>Uploaded Recipts</h5>
+        <h5 class="urecipts">Uploaded Recipts</h5>
 
         <div>
             <% items.forEach(function(image) { %>
                 <%if(image.userid == User._id){%>
-                <div>
-                    <div>
-                       <img src="uploads/" alt="">
+                <div class="row recipts">
+                    <div class="col-lg-12">
+                       <img style="width: 200px; margin: 5px auto;" src="uploads/<%=image.img%>" alt="Recipt Image">
                         <div>
-                            <h5><%= image.name %></h5>
-                            <p><%= image.desc %></p>
+                            <h6 class="recipt-title"><%= image.name %></h6>
+                            <p class="recipt-desc"><%= image.desc %></p>
                         </div>
                     </div>
                 </div>
@@ -45,7 +45,5 @@
     </div>
 </div>
 
-    
-
-
+<div style="height: 200px;"></div>
 <%- include('_footer'); -%>
