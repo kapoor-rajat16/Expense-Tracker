@@ -110,11 +110,14 @@ padding-bottom: 70px;
     }
 } */
 
-h3{
+h3,h5{
     font-family: Ubuntu;
     color: #ff4c68;
     font-weight: 500;
     padding: 2%;
+}
+h5{
+    text-decoration: underline;
 }
 
 .upload-lable{

@@ -419,8 +419,8 @@ app.post("/subMoney", function (req, res) {
 });
 
 app.post("/setTarget",function (req,res) {
-    let expectedExpense = req.body.TGroceryExpense+req.body.TTransportationExpense+req.body.TEducationExpense+req.body.TOtherExpense;
-    let TSavings = req.body.ProjectedIncome-req.body.TGroceryExpense-req.body.TTransportationExpense-req.body.TEducationExpense-req.body.TOtherExpense;
+    let expectedExpense = Number(req.body.TGroceryExpense)+Number(req.body.TTransportationExpense)+Number(req.body.TEducationExpense)+Number(req.body.TOtherExpense);
+    let TSavings = Number(req.body.ProjectedIncome)-Number(req.body.TGroceryExpense)-Number(req.body.TTransportationExpense)-Number(req.body.TEducationExpense)-Number(req.body.TOtherExpense);
     User.findOneAndUpdate({_id:req.user._id},{xincome:req.body.ProjectedIncome,xgrocery:req.body.TGroceryExpense,xtranspartation:req.body.TTransportationExpense,xeducation:req.body.TEducationExpense,xother:req.body.TOtherExpense,xsavings:TSavings,xexpense:expectedExpense},function (err,data) {
         
         if (err) {
