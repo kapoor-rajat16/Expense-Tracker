@@ -29,7 +29,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-mongoose.connect("mongodb://localhost:27017/etUserDB", { useNewUrlParser: true });
+mongoose.connect("mongodb+srv://admit-rajat:Test123@cluster0.uzkn9.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", { useNewUrlParser: true });
 
 var imageSchema = new mongoose.Schema({
     userid: String,
