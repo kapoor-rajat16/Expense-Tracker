@@ -253,7 +253,30 @@ app.get("/target", function (req,res) {
     else {
         res.redirect("login");
     }
- });
+});
+
+app.get('/uploadRecipts', (req, res) => {
+    // image.find({}, (err, items) => {
+    //     if (err) {
+    //         console.log(err);
+    //         res.status(500).send('An error occurred', err);
+    //     }
+    //     else {
+    //         res.render('uploadRecipts', { items: items,User:req.user });
+    //     }
+    // });
+
+    if (req.isAuthenticated()) {
+        image.find()
+            .exec()
+            .then(items => res.render("uploadRecipts", { items: items, User: req.user }))
+            .catch(err => res.redirect("tracker"));
+
+    }
+    else {
+        res.redirect("login");
+    }
+});
 
 app.post("/tracker", function (req, res) {
     req.logout();
@@ -272,17 +295,6 @@ app.post("/history", function (req, res) {
     res.redirect("/");
 });
 
-app.get('/uploadRecipts', (req, res) => {
-    image.find({}, (err, items) => {
-        if (err) {
-            console.log(err);
-            res.status(500).send('An error occurred', err);
-        }
-        else {
-            res.render('uploadRecipts', { items: items });
-        }
-    });
-});
 
 app.post("/auth/google/tracker", function (req, res) {
     req.logout();
@@ -327,8 +339,6 @@ app.post("/login", function (req, res) {
 
 });
 
-
-/*************tracker**************/
 
 app.post("/addMoney", function (req, res) {
 
