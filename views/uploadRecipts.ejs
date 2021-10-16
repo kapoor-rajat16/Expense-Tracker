@@ -1,6 +1,6 @@
 <%- include('_header'); -%>
 
-    <form method="post" action="/uploadRecipts" class="mx-auto" style="width: 300px;">
+    <form method="post" action="/uploadRecipts" class="mx-auto" style="width: 300px;" enctype="multipart/form-data">
         <label for="imgtitle" class="upload-lable">Recipt Title</label>
         <div class="mb-3">
             <input type="text" class="form-control" id="imgtitle" name="imgtitle" placeholder="Image Title"
@@ -12,30 +12,14 @@
                 placeholder="Description" required>
         </textarea>
         </div>
-        <div>
+        <div class="form-group">
             <label for="image" class="upload-lable">Choose Recipt</label>
-            <input type="file" id="image" name="image" value="" required>
+            <input type="file" id="image" name="image" class="form-control-file" required>
         </div>
         <div class="my-3">
             <button type="submit" class="btn btn-danger">Upload</button>
         </div>
     </form>
 
-    <hr>
-
-    <h4>Uploaded Images</h4>
-    <div>
-        <% items.forEach(function(image) { %>
-            <div>
-                <div>
-                    <img src="data:image/<%=image.img.contentType%>;base64,<%=image.img.data.toString('base64')%>">
-                    <div>
-                        <h5><%= image.name %></h5>
-                        <p><%= image.desc %></p>
-                    </div>
-                </div>
-            </div>
-            <% }) %>
-    </div>
 
 <%- include('_footer'); -%>

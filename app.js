@@ -37,38 +37,39 @@ var imageSchema = new mongoose.Schema({
     desc: String,
     img:
     {
-        data: Buffer,
-        contentType: String
+       type:String
     }
 });
 
 const image = mongoose.model('Image', imageSchema);
 
 var storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, 'uploads/')
+    destination: function(req, file, cb){
+        cb(null, 'public/uploads/')
     },
-    filename: (req, file, cb) => {
-        let ext = path.extname(file.originalname)
-        cb(null, Date.now() + ext)
+    filename: function(req, file, cb){
+        // let ext = path.extname(file.originalname)
+        cb(null, Date.now() + file.originalname)
     }
 });
   
+// upload parameters for molter
+
 var upload = multer({
     storage: storage,
-    fileFilter: function (req,file,callback) {
-        if (
-            file.mimetype == 'image/png' ||
-            file.mimetype == 'image/jpg'
-        ) {
-            callback(null,true)
-        } else{
-            console.log('only jpg & png file supported!');
-            callback(null,false)
-        }
-    },
+    // fileFilter: function (req,file,callback) {
+    //     if (
+    //         file.mimetype == 'image/png' ||
+    //         file.mimetype == 'image/jpg'
+    //     ) {
+    //         callback(null,true)
+    //     } else{
+    //         console.log('only jpg & png file supported!');
+    //         callback(null,false)
+    //     }
+    // },
     limits:{
-        fileSize:1024 * 1024 * 2
+        fileSize:1024 * 1024 * 3
     }
     });
 
@@ -418,26 +419,35 @@ app.post("/setTarget",function (req,res) {
 });
 
 
-app.post('/uploadRecipts', upload.single('image'), (req, res, next) => {
+app.post('/uploadRecipts', upload.single('image'), async(req,res) => {
   
-    var obj = {
+    console.log(req.file);
+    let obj = new image({
         userid:req.user._id,
         name: req.body.imgtitle,
         desc: req.body.desc,
-        img: {
-            data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
-            contentType: 'image/png'
-        }
-    }
-    image.create(obj, (err, item) => {
-        if (err) {
-            console.log(err);
-        }
-        else {
-            // item.save();
-            res.redirect('/');
-        }
+        // img: {
+        //     data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
+        //     contentType: 'image/png'
+        // }
+        img:req.file.filename
     });
+
+    try{
+        obj = await obj.save();
+        res.redirect('uploadRecipts');
+    } catch(error){
+        console.log(error);
+    }
+    // image.create(obj, (err, item) => {
+    //     if (err) {
+    //         console.log(err);
+    //     }
+    //     else {
+    //         // item.save();
+    //         res.redirect('/');
+    //     }
+    // });
 });
 
 app.listen(process.env.PORT || 3000, function () {
