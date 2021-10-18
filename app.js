@@ -303,7 +303,7 @@ app.get("/list",(req,res)=>{
     }
 });
 
-app.post("/list", function (req, res) {
+app.post("/newlist", function (req, res) {
     let itemName = req.body.newItem;
     const newItem = new Item({
         name: itemName,
@@ -322,6 +322,11 @@ app.post("/list", function (req, res) {
     newItem.save();
     res.redirect("/list");
 
+});
+
+app.post("/list",(req,res)=>{
+    req.logout();
+    res.redirect("/");
 });
 
 app.post("/delete",function (req,res) {
