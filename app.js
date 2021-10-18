@@ -31,6 +31,13 @@ app.use(passport.session());
 
 mongoose.connect("mongodb+srv://admit-rajat:Test123@cluster0.uzkn9.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", { useNewUrlParser: true });
 
+const itemSchema = {
+    name: String,
+    userid:String
+};
+
+const Item = mongoose.model("Item", itemSchema);
+
 var imageSchema = new mongoose.Schema({
     userid: String,
     name:String,
@@ -276,6 +283,61 @@ app.get('/uploadRecipts', (req, res) => {
         res.redirect("login");
     }
 });
+
+// list****************************************************
+
+app.get("/list",(req,res)=>{
+    if (req.isAuthenticated()) {
+        Item.find({}, function (err, foundItems) {
+            if (err) {
+                console.log(err);
+            }
+            else {
+                res.render("list", { listTitle: "Today", newListItems: foundItems,User:req.user });
+            }
+    
+        });
+    }
+    else {
+        res.redirect("login");
+    }
+});
+
+app.post("/list", function (req, res) {
+    let itemName = req.body.newItem;
+    const newItem = new Item({
+        name: itemName,
+        userid:req.user._id
+    });
+
+    // Item.insertOne(newItem,function (err) {
+    //     if (err) {
+    //         console.log(err);
+    //     }
+    //     else{
+    //         res.redirect("/");
+    //     }
+    // });
+
+    newItem.save();
+    res.redirect("/list");
+
+});
+
+app.post("/delete",function (req,res) {
+    //    console.log(req.body.checkbox);
+    const checkedItemId = req.body.checkbox;
+     Item.findByIdAndRemove(checkedItemId, function (err) {
+         if (err) {
+             console.log(err);
+         }
+         else{
+             res.redirect("/list");
+         }
+     });
+    });
+
+// list******************************************
 
 app.post("/tracker", function (req, res) {
     req.logout();
