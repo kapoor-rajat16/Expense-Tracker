@@ -1,5 +1,6 @@
 <%- include('_header'); -%>
-    <div class="row">
+<button class="btn btn-outline-danger" onclick="downloadChart()">Download</button>   
+<div class="row" id="charts">
 
         <div class="col-lg-6">
             <div class="chart chart1 mx-auto">
@@ -710,4 +711,13 @@
     <div style="height: 200px;">
 
     </div>
+
+    <script>
+        function downloadChart() {
+            const element = document.getElementById("charts");
+            html2pdf()
+                .from(element)
+                .save();
+        }
+    </script>
     <%- include('_footer'); -%>

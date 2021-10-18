@@ -380,7 +380,7 @@ app.post("/signup", function (req, res) {
     User.register({ username: req.body.username, balance: 0, totalCredit: 0, totalDebit: 0 }, req.body.password, function (err, user) {
         if (err) {
             console.log(err);
-            res.redirect("signup");
+            res.redirect("login");
         }
         else {
             passport.authenticate("local")(req, res, function () {
@@ -526,16 +526,6 @@ app.post('/addnewRecipts', upload.single('image'), async(req,res) => {
     }
     
 });
-
-function downloadHistory() {
-    console.log("initiated");
-    const element = document.getElementById("transactionHistory");
-    html2pdf()
-    .from(element)
-    .save();
-}
-    
-
 
 app.listen(process.env.PORT || 3000, function () {
     console.log("Server is running on port 3000");
