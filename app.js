@@ -504,7 +504,7 @@ app.post("/setTarget",function (req,res) {
 });
 
 
-app.post('/uploadRecipts', upload.single('image'), async(req,res) => {
+app.post('/addnewRecipts', upload.single('image'), async(req,res) => {
   
     console.log(req.file);
     let obj = new image({
