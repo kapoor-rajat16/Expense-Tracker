@@ -6,7 +6,6 @@ const session = require("express-session");
 const passport = require("passport");
 const passportLocalMongoose = require("passport-local-mongoose");
 const LocalStrategy = require('passport-local').Strategy;
-const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const findOrCreate = require('mongoose-findorcreate');
 const fs = require('fs');
 const path = require('path');
@@ -23,7 +22,6 @@ app.use(session({
     secret: 'Our little secret.',
     resave: false,
     saveUninitialized: true,
-    // cookie: { secure: true }
 }));
 
 app.use(passport.initialize());
@@ -33,52 +31,41 @@ mongoose.connect("mongodb+srv://admit-rajat:Test123@cluster0.uzkn9.mongodb.net/m
 
 const itemSchema = {
     name: String,
-    userid:String
+    userid: String
 };
 
 const Item = mongoose.model("Item", itemSchema);
 
 var imageSchema = new mongoose.Schema({
     userid: String,
-    name:String,
+    name: String,
     desc: String,
     img:
     {
-       type:String
+        type: String
     }
 });
 
 const image = mongoose.model('Image', imageSchema);
 
 var storage = multer.diskStorage({
-    destination: function(req, file, cb){
+    destination: function (req, file, cb) {
         cb(null, 'public/uploads/')
     },
-    filename: function(req, file, cb){
+    filename: function (req, file, cb) {
         // let ext = path.extname(file.originalname)
         cb(null, Date.now() + file.originalname)
     }
 });
-  
-// upload parameters for molter
+
+// upload parameters for multer
 
 var upload = multer({
     storage: storage,
-    // fileFilter: function (req,file,callback) {
-    //     if (
-    //         file.mimetype == 'image/png' ||
-    //         file.mimetype == 'image/jpg'
-    //     ) {
-    //         callback(null,true)
-    //     } else{
-    //         console.log('only jpg & png file supported!');
-    //         callback(null,false)
-    //     }
-    // },
-    limits:{
-        fileSize:1024 * 1024 * 3
+    limits: {
+        fileSize: 1024 * 1024 * 3
     }
-    });
+});
 
 const TransactionSchema = new mongoose.Schema({
 
@@ -111,15 +98,12 @@ const TransactionSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    year:{
-        type:String
+    year: {
+        type: String
     },
-    month:{
-        type:String
+    month: {
+        type: String
     },
-    // recipt:{
-    //     type: Image
-    // }
 });
 const transactions = mongoose.model('Transaction', TransactionSchema);
 
@@ -129,33 +113,33 @@ const userSchema = new mongoose.Schema({
     balance: Number,
     totalCredit: Number,
     totalDebit: Number,
-    xsavings:{
-        type:Number,
-        default:0
+    xsavings: {
+        type: Number,
+        default: 0
     },
-    xincome:{
-        type:Number,
-        default:0
+    xincome: {
+        type: Number,
+        default: 0
     },
-    xgrocery:{
-        type:Number,
-        default:0
+    xgrocery: {
+        type: Number,
+        default: 0
     },
-    xtranspartation:{
-        type:Number,
-        default:0
+    xtranspartation: {
+        type: Number,
+        default: 0
     },
-    xeducation:{
-        type:Number,
-        default:0
+    xeducation: {
+        type: Number,
+        default: 0
     },
-    xother:{
-        type:Number,
-        default:0
+    xother: {
+        type: Number,
+        default: 0
     },
-    xexpense:{
-        type:Number,
-        default:0
+    xexpense: {
+        type: Number,
+        default: 0
     }
 });
 
@@ -172,29 +156,9 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-passport.use(new GoogleStrategy({
-    clientID: process.env.CLIENT_ID,
-    clientSecret: process.env.CLIENT_SECRET,
-    callbackURL: "http://localhost:3000/auth/google/tracker",
-    userProfileURL: "https://www.googleapis.com/oauth2/v3/userinfo"
-},
-    function (accessToken, refreshToken, profile, cb) {
-        User.findOrCreate = require('mongoose-findorcreate')({ googleId: profile.id }, function (err, user) {
-            return cb(err, user);
-        });
-    }
-));
-
 
 app.get("/", function (req, res) {
     res.render("home");
-});
-
-app.get('/auth/google',
-    passport.authenticate('google', { scope: ['profile'] }));
-
-app.get("/auth/google/tracker", function (req, res) {
-    res.render("tracker");
 });
 
 app.get("/login", function (req, res) {
@@ -223,22 +187,16 @@ app.get("/income", function (req, res) {
         res.redirect("login");
     }
 });
-app.get("/auth/google/income", function (req, res) {
-    if (req.isAuthenticated()) {
-        res.render("income");
-    }
-    else {
-        res.redirect("login");
-    }
-});
+
 app.get("/charts", function (req, res) {
     if (req.isAuthenticated()) {
-        res.render("charts",{User:req.user})
+        res.render("charts", { User: req.user })
     }
     else {
         res.redirect("login");
     }
 });
+
 app.get("/history", function (req, res) {
     if (req.isAuthenticated()) {
         transactions.find()
@@ -252,9 +210,9 @@ app.get("/history", function (req, res) {
     }
 });
 
-app.get("/target", function (req,res) { 
+app.get("/target", function (req, res) {
     if (req.isAuthenticated()) {
-        res.render("target",{User:req.user});
+        res.render("target", { User: req.user });
     }
     else {
         res.redirect("login");
@@ -262,15 +220,7 @@ app.get("/target", function (req,res) {
 });
 
 app.get('/uploadRecipts', (req, res) => {
-    // image.find({}, (err, items) => {
-    //     if (err) {
-    //         console.log(err);
-    //         res.status(500).send('An error occurred', err);
-    //     }
-    //     else {
-    //         res.render('uploadRecipts', { items: items,User:req.user });
-    //     }
-    // });
+
 
     if (req.isAuthenticated()) {
         image.find()
@@ -286,16 +236,16 @@ app.get('/uploadRecipts', (req, res) => {
 
 // list****************************************************
 
-app.get("/list",(req,res)=>{
+app.get("/list", (req, res) => {
     if (req.isAuthenticated()) {
         Item.find({}, function (err, foundItems) {
             if (err) {
                 console.log(err);
             }
             else {
-                res.render("list", { listTitle: "Today", newListItems: foundItems,User:req.user });
+                res.render("list", { listTitle: "Today", newListItems: foundItems, User: req.user });
             }
-    
+
         });
     }
     else {
@@ -307,40 +257,31 @@ app.post("/newlist", function (req, res) {
     let itemName = req.body.newItem;
     const newItem = new Item({
         name: itemName,
-        userid:req.user._id
+        userid: req.user._id
     });
-
-    // Item.insertOne(newItem,function (err) {
-    //     if (err) {
-    //         console.log(err);
-    //     }
-    //     else{
-    //         res.redirect("/");
-    //     }
-    // });
 
     newItem.save();
     res.redirect("/list");
 
 });
 
-app.post("/list",(req,res)=>{
+app.post("/list", (req, res) => {
     req.logout();
     res.redirect("/");
 });
 
-app.post("/delete",function (req,res) {
-    //    console.log(req.body.checkbox);
+app.post("/delete", function (req, res) {
+
     const checkedItemId = req.body.checkbox;
-     Item.findByIdAndRemove(checkedItemId, function (err) {
-         if (err) {
-             console.log(err);
-         }
-         else{
-             res.redirect("/list");
-         }
-     });
+    Item.findByIdAndRemove(checkedItemId, function (err) {
+        if (err) {
+            console.log(err);
+        }
+        else {
+            res.redirect("/list");
+        }
     });
+});
 
 // list******************************************
 
@@ -365,12 +306,6 @@ app.post("/target", function (req, res) {
     res.redirect("/");
 });
 app.post("/uploadRecipts", function (req, res) {
-    req.logout();
-    res.redirect("/");
-});
-
-
-app.post("/auth/google/tracker", function (req, res) {
     req.logout();
     res.redirect("/");
 });
@@ -401,8 +336,8 @@ app.post("/login", function (req, res) {
 
     req.login(user, function (err) {
         if (err) {
-            console.log(err);
             res.redirect("signup");
+            console.log(err);
         }
         else {
             passport.authenticate("local")(req, res, function () {
@@ -424,7 +359,7 @@ app.post("/addMoney", function (req, res) {
         mode: req.body.mode,
         note: req.body.note,
         year: new Date().getFullYear(),
-        month:new Date().getMonth()
+        month: new Date().getMonth()
     });
 
     transaction.save();
@@ -453,7 +388,7 @@ app.post("/addMoney", function (req, res) {
 });
 app.post("/subMoney", function (req, res) {
 
-        const transaction = new transactions({
+    const transaction = new transactions({
         flow: "Debit",
         userid: req.user.id,
         amount: req.body.expense,
@@ -461,7 +396,7 @@ app.post("/subMoney", function (req, res) {
         mode: req.body.mode,
         note: req.body.note,
         year: new Date().getFullYear(),
-        month:new Date().getMonth()
+        month: new Date().getMonth()
     });
 
     transaction.save();
@@ -488,48 +423,41 @@ app.post("/subMoney", function (req, res) {
 
 });
 
-app.post("/setTarget",function (req,res) {
-    let expectedExpense = Number(req.body.TGroceryExpense)+Number(req.body.TTransportationExpense)+Number(req.body.TEducationExpense)+Number(req.body.TOtherExpense);
-    let TSavings = Number(req.body.ProjectedIncome)-Number(req.body.TGroceryExpense)-Number(req.body.TTransportationExpense)-Number(req.body.TEducationExpense)-Number(req.body.TOtherExpense);
-    User.findOneAndUpdate({_id:req.user._id},{xincome:req.body.ProjectedIncome,xgrocery:req.body.TGroceryExpense,xtranspartation:req.body.TTransportationExpense,xeducation:req.body.TEducationExpense,xother:req.body.TOtherExpense,xsavings:TSavings,xexpense:expectedExpense},function (err,data) {
-        
+app.post("/setTarget", function (req, res) {
+    let expectedExpense = Number(req.body.TGroceryExpense) + Number(req.body.TTransportationExpense) + Number(req.body.TEducationExpense) + Number(req.body.TOtherExpense);
+    let TSavings = Number(req.body.ProjectedIncome) - Number(req.body.TGroceryExpense) - Number(req.body.TTransportationExpense) - Number(req.body.TEducationExpense) - Number(req.body.TOtherExpense);
+    User.findOneAndUpdate({ _id: req.user._id }, { xincome: req.body.ProjectedIncome, xgrocery: req.body.TGroceryExpense, xtranspartation: req.body.TTransportationExpense, xeducation: req.body.TEducationExpense, xother: req.body.TOtherExpense, xsavings: TSavings, xexpense: expectedExpense }, function (err, data) {
+
         if (err) {
             console.log(err);
             res.redirect("target");
         }
-        else{
+        else {
             res.redirect("target");
         }
     });
 });
 
 
-app.post('/addnewRecipts', upload.single('image'), async(req,res) => {
-  
+app.post('/addnewRecipts', upload.single('image'), async (req, res) => {
+
     console.log(req.file);
     let obj = new image({
-        userid:req.user._id,
+        userid: req.user._id,
         name: req.body.imgtitle,
         desc: req.body.desc,
-        // img: {
-        //     data: fs.readFileSync(path.join(__dirname + '/uploads/' + req.file.filename)),
-        //     contentType: 'image/png'
-        // }
-        img:req.file.filename
+        img: req.file.filename
     });
 
-    try{
+    try {
         obj = await obj.save();
         res.redirect('uploadRecipts');
-    } catch(error){
+    } catch (error) {
         console.log(error);
     }
-    
+
 });
 
 app.listen(process.env.PORT || 3000, function () {
     console.log("Server is running on port 3000");
 });
-// else if (req.body.username === "" || req.body.email === "" || req.body.password === "") {
-//     res.redirect("signup");
-// }
